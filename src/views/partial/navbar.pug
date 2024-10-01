@@ -9,12 +9,18 @@ block content
       span.navbar-toggler-icon
     #navbarCollapse.collapse.navbar-collapse
       .navbar-nav.ms-auto.p-4.p-lg-0
-        a.nav-item.nav-link.active(href='/') #{t('home.home')}
+        a.nav-item.nav-link(href='/') #{t('home.home')}
         a.nav-item.nav-link(href='') #{t('home.course')}
-        a.nav-item.nav-link(href='')
+        a.nav-item.nav-link(href='#' id='userDropdown')
           i.fa.fa-user
-        .nav-item.nav-link
-          a.item-lang(href='/?lang=en' data-lang='en') En
-          span   |  
-          a.item-lang(href='/?lang=vi' data-lang='vi') Vi
+        ul.dropdown-menu-nav
+          li
+            a(href='') #{t('home.login')}
+          li
+            a(href='') #{t('home.signup')}
+
+      .nav-item.nav-link
+        a.item-lang(href='/?lang=en' data-lang='en') En
+        span   |  
+        a.item-lang(href='/?lang=vi' data-lang='vi') Vi
   <!-- Navbar End -->
