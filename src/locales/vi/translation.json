@@ -45,6 +45,12 @@
     "Subscribe": "Đăng ký",
     "Copy-right": "Đã đăng ký.",
     "PAID": "Trả phí",
-    "FREE": "Miễn phí"
+    "FREE": "Miễn phí",
+    "title": "LAB",
+    "message": "Chào mừng bạn đến với LAB"
+  },
+  "course": {
+    "course_error": "Không thể tải dữ liệu khóa học.",
+    "course_filter_error": "Lỗi máy chủ nội bộ"
   }
 }

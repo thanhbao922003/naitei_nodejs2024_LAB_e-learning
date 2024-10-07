@@ -45,6 +45,12 @@
     "Subscribe": "Subscribe",
     "Copy-right": "All Right Reserved.",
     "PAID": "PAID",
-    "FREE": "FREE"
+    "FREE": "FREE",
+    "title": "LAB",
+    "message": "Welcome to LAB"
+  },
+  "course": {
+    "course_error": "Failed to load courses data.",
+    "course_filter_error": "Internal server error"
   }
 }
