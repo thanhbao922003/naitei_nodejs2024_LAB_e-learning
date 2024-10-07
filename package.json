@@ -9,7 +9,11 @@
     "lint:tests": "npx eslint ./spec",
     "start": "NODE_ENV=development node -r ./preload.js ./dist",
     "test": "NODE_ENV=test npx ts-node ./spec",
-    "test:hot": "nodemon --exec \"npm run test\" --watch ./src --watch ./spec -e ts"
+    "test:hot": "nodemon --exec \"npm run test\" --watch ./src --watch ./spec -e ts",
+    "add:migration": "npm run typeorm -- -d ./src/repos/db.ts migration:generate ./src/migration/$npm_config_name",
+    "revert:migration": "npm run typeorm migration:revert -- -d ./src/repos/db.ts",
+    "apply:migration": "npm run typeorm migration:run -- -d ./src/repos/db.ts",
+    "typeorm": "ts-node --transpile-only -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "engines": {
     "node": ">=16.0.0"
