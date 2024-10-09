@@ -32,7 +32,7 @@ export default tseslint.config(
   { files: ['**/*.ts'] },
   {
     rules: {
-      '@typescript-eslint/explicit-member-accessibility': 'warn',
+      '@typescript-eslint/explicit-member-accessibility': 'off',
       '@typescript-eslint/no-misused-promises': 0,
       '@typescript-eslint/no-floating-promises': 0,
       '@typescript-eslint/no-confusing-void-expression': 0,
