@@ -1,11 +1,4 @@
-import { Entity, 
-  Column, 
-  PrimaryGeneratedColumn, 
-  ManyToOne, 
-  CreateDateColumn, 
-  UpdateDateColumn, 
-  JoinColumn 
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from 'typeorm';
 import { User } from './User';
 
 @Entity('courses')

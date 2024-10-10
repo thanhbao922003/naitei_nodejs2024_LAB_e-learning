@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "npx tsc ",
-    "dev": "NODE_ENV=development npx ts-node ./src",
+    "dev": " npx ts-node ./src",
     "dev:hot": "nodemon --exec \"npm run dev\" --watch ./src -e ts",
     "lint": "npx eslint ./src",
     "lint:tests": "npx eslint ./spec",
@@ -55,6 +55,7 @@
     "@types/supertest": "^6.0.2",
     "eslint": "^9.12.0",
     "eslint-plugin-n": "^17.10.3",
+    "express-async-handler": "^1.2.0",
     "find": "^0.3.0",
     "fs-extra": "^11.2.0",
     "jasmine": "^5.3.1",
