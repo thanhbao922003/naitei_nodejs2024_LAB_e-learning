@@ -4,6 +4,42 @@ block content
   include partial/navbar
   include partial/header
 
+    //- Filter and Sort Form Start
+  .container-xxl.py-3
+    form(action='/courses', method='GET', class='row g-3')
+      .col-md-3
+        label(for='professorId') #{t('home.Professor')}
+        input.form-control(type='number', name='professorId', placeholder=t('home.Professor'), value=(filters.professorId || ''))
+
+      .col-md-3
+        label(for='minPrice') #{t('home.MinPrice')}
+        input.form-control(type='number', name='minPrice', placeholder=t('home.MinPrice'), value=(filters.minPrice || ''), min='0')
+
+      .col-md-3
+        label(for='maxPrice') #{t('home.MaxPrice')}
+        input.form-control(type='number', name='maxPrice', placeholder=t('home.MaxPrice'), value=(filters.maxPrice || ''), min='0')
+
+      .col-md-3
+        label(for='minRating') #{t('home.MinRating')}
+        input.form-control(type='number', step='0.1', min='0', max='5', name='minRating', placeholder=t('home.MinRating'), value=(filters.minRating || ''))
+
+      .col-md-3
+        label(for='sortBy') #{t('home.SortBy')}
+        select.form-control(name='sortBy')
+          option(value='name' selected=(filters.sortBy === 'name')) #{t('home.SortByName')}
+          option(value='price' selected=(filters.sortBy === 'price')) #{t('home.SortByPrice')}
+          option(value='average_rating' selected=(filters.sortBy === 'average_rating')) #{t('home.SortByRating')}
+          option(value='created_at' selected=(filters.sortBy === 'created_at')) #{t('home.SortByDate')}
+
+      .col-md-3
+        label(for='sortOrder') #{t('home.SortOrder')}
+        select.form-control(name='sortOrder')
+          option(value='ASC' selected=(filters.sortOrder === 'ASC')) #{t('home.SortAsc')}
+          option(value='DESC' selected=(filters.sortOrder === 'DESC')) #{t('home.SortDesc')}
+
+      .col-md-12
+        button.btn.btn-primary(type='submit') #{t('home.ApplyFilters')}
+
   <!-- Courses Start -->
     .container-xxl.py-5
     .container
@@ -45,4 +81,25 @@ block content
                           i.fa.fa-chevron-right.me-2.fs-10
           else
                 p.text-center #{t('home.NoCoursesAvailable')}
+                
+  //- Pagination Section
+  if pageCount > 1
+    .d-flex.justify-content-center.mt-4
+      nav
+        ul.pagination
+          //- Previous Page Link
+          li.page-item(class=(currentPage === 1 ? 'disabled' : ''))
+            a.page-link(href=`?page=${currentPage - 1}&sortBy=${filters.sortBy}&sortOrder=${filters.sortOrder}&professorId=${filters.professorId || ''}&minPrice=${filters.minPrice || ''}&maxPrice=${filters.maxPrice || ''}&minRating=${filters.minRating || ''}`)
+              | « #{t('home.Previous')}
+
+          //- Page Numbers
+          each num in [...Array(pageCount).keys()].map(n => n + 1)
+            li.page-item(class=(currentPage === num ? 'active' : ''))
+              a.page-link(href=`?page=${num}&sortBy=${filters.sortBy}&sortOrder=${filters.sortOrder}&professorId=${filters.professorId || ''}&minPrice=${filters.minPrice || ''}&maxPrice=${filters.maxPrice || ''}&minRating=${filters.minRating || ''}`) #{num}
+
+          //- Next Page Link
+          li.page-item(class=(currentPage === pageCount ? 'disabled' : ''))
+            a.page-link(href=`?page=${currentPage + 1}&sortBy=${filters.sortBy}&sortOrder=${filters.sortOrder}&professorId=${filters.professorId || ''}&minPrice=${filters.minPrice || ''}&maxPrice=${filters.maxPrice || ''}&minRating=${filters.minRating || ''}`)
+              | #{t('home.Next')} »
+
   include partial/footer
