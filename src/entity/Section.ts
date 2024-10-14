@@ -1,41 +1,47 @@
-import { Entity, 
-  Column, 
-  PrimaryGeneratedColumn, 
-  ManyToOne, 
-  CreateDateColumn, 
-  UpdateDateColumn, 
-  JoinColumn 
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { Course } from './Course';
+import { Lesson } from './Lesson';
 
 @Entity('sections')
 export class Section {
-    @PrimaryGeneratedColumn('increment', { type: 'bigint' })
-      id!: number;
+  @PrimaryGeneratedColumn('increment', { type: 'bigint' })
+  id!: number;
 
-    @ManyToOne(() => Course)
-    @JoinColumn({ name: 'course_id' })
-      course!: Course;
+  @ManyToOne(() => Course)
+  @JoinColumn({ name: 'course_id' })
+  course!: Course;
 
-    @Column()
-      name!: string;
+  @OneToMany(() => Lesson, (lesson) => lesson.section)
+  lessons!: Lesson[];
 
-    @Column('integer')
-      total_time!: number;
+  @Column()
+  name!: string;
 
-    @Column('integer')
-      total_lesson!: number;
+  @Column('integer')
+  total_time!: number;
 
-    @Column({ type: 'bigint' })
-      course_id!: number;
+  @Column('integer')
+  total_lesson!: number;
 
-    @CreateDateColumn({ type: 'datetime' })
-      created_at!: Date;
+  @Column({ type: 'bigint' })
+  course_id!: number;
 
-    @UpdateDateColumn({ type: 'datetime' })
-      updated_at!: Date;
+  @CreateDateColumn({ type: 'datetime' })
+  created_at!: Date;
 
-    constructor(sectionData?: Partial<Section>) {
-      sectionData && Object.assign(this, sectionData);
-    }
+  @UpdateDateColumn({ type: 'datetime' })
+  updated_at!: Date;
+
+  constructor(sectionData?: Partial<Section>) {
+    sectionData && Object.assign(this, sectionData);
+  }
 }

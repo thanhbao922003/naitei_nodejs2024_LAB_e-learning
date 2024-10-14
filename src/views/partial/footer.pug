@@ -1,0 +1,56 @@
+﻿extends ../layout
+
+block content
+  <!-- Footer Start -->
+  .container-fluid.bg-dark.text-light.footer.pt-5.mt-5.wow.fadeIn(data-wow-delay='0.1s')
+    .container.py-5
+      .row.g-5
+        .col-lg-4.col-md-6
+          h4.text-white.mb-3 #{t('home.Quick-link')}
+          p
+            a.text-light(href='about.html') #{t('home.About')}
+          p
+            a.text-light(href='contact.html') #{t('home.Contact')}
+          p
+            a.text-light(href='') #{t('home.Privacy-Policy')}
+          p
+            a.text-light(href='') #{t('home.Terms-Condition')}
+          p
+            a.text-light(href='') #{t('home.FAQ')}
+        .col-lg-4.col-md-6
+          h4.text-white.mb-3 #{t('home.Contact')}
+          p.mb-2
+            i.fa.fa-map-marker-alt.me-3
+            | #{t('home.Location')}
+          p.mb-2
+            i.fa.fa-phone-alt.me-3
+            | +84 111 111 111
+          p.mb-2
+            i.fa.fa-envelope.me-3
+            | lab@gmail.com
+          .d-flex.pt-2
+            a.btn.btn-outline-light.btn-social(href='')
+              i.fab.fa-twitter
+            a.btn.btn-outline-light.btn-social(href='')
+              i.fab.fa-facebook-f
+            a.btn.btn-outline-light.btn-social(href='')
+              i.fab.fa-youtube
+            a.btn.btn-outline-light.btn-social(href='')
+              i.fab.fa-linkedin-in
+        .col-lg-4.col-md-6
+          h4.text-white.mb-3 #{t('home.Subscribe-title')}
+          p
+            | #{t('home.Subscribe-content')}
+          .position-relative.mx-auto
+            form(action='#')
+              input.form-control.border-0.w-100.py-3.ps-4.pe-5(type='email' placeholder='email' required='')
+              button.btn.text-light.py-2.position-absolute.top-0.end-0.mt-2.me-2(type='submit')
+                a(href='mailto:keertidvcorai@gmail.com') #{t('home.Subscribe')}
+    .container
+      .copyright
+        .row
+          .col-md-6.text-center.text-md-start.mb-3.mb-md-0
+            | &copy; 
+            a.border-bottom(href='index.html') LAB
+            | , #{t('home.Copy-right')}
+  <!-- Footer End -->
