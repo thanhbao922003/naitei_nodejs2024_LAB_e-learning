@@ -2,6 +2,10 @@
   "home": {
     "home": "Trang chủ",
     "course": "Các khóa học",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "account": "Tài khoản",
+    "logout": "Đăng xuất",
     "Carousel": "Nền tảng học trực tuyến tốt nhất",
     "Carousel1": "Học các kỹ năng sẵn sàng cho công việc từ các khóa học trực tuyến miễn phí",
     "Carousel2": "Khám phá nhiều khóa học được thiết kế để nâng cao chuyên môn của bạn về công nghệ, kinh doanh, nghệ thuật, v.v. Hãy bắt đầu học ngay hôm nay!",
@@ -44,10 +48,31 @@
     "Subscribe-content": "Đăng ký ngay và tham gia cộng đồng người học ngày càng lớn mạnh của chúng tôi, những người cam kết theo đuổi giáo dục suốt đời!",
     "Subscribe": "Đăng ký",
     "Copy-right": "Đã đăng ký.",
-    "PAID": "Trả phí",
-    "FREE": "Miễn phí",
-    "title": "LAB",
-    "message": "Chào mừng bạn đến với LAB"
+    "PAID": "Đã thanh toán",
+    "FREE": "Miễn phí"
+  },
+  "login": {
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgot-password": "Quên mật khẩu?",
+    "signup": "Chưa có tài khoản?",
+    "login-success": "Đăng nhập thành công",
+    "login-failure": "Đăng nhập thất bại",
+    "logout": "Đăng xuất thành công",
+    "login-failure-msg": "email hoặc mật khẩu không đúng.",
+    "login-success-msg": "Bạn sẽ được chuyển đến trang chủ sau 2s.",
+    "authentication": "Người dùng đã được xác thực",
+    "not-authentication": "Người dùng chưa được xác thực"
+  },
+  "signup": {
+    "username": "Tên đăng nhập",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "login": "Đã có tài khoản?",
+    "signup-success": "Đăng ký thành công",
+    "signup-failure": "Đăng ký không thành công",
+    "signup-success-msg": "Bạn sẽ được chuyển đến trang đăng nhập sau 2s.",
+    "signup-failure-msg": "Tên người dùng hoặc email đã tồn tại."
   },
   "course": {
     "course_error_id_required": "Yêu cầu khóa học ID",

@@ -4845,6 +4845,8 @@ fieldset:disabled .btn {
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   border-radius: 0px;
+  position: fixed;
+  right: 0;
 }
 .toast:not(.showing):not(.show) {
   opacity: 0;
@@ -4856,6 +4858,7 @@ fieldset:disabled .btn {
   width: max-content;
   max-width: 100%;
   pointer-events: none;
+  position: relative;
 }
 .toast-container > :not(:last-child) {
   margin-bottom: 0.75rem;

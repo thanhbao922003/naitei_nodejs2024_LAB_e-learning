@@ -1,0 +1,84 @@
+﻿extends layout
+
+block content
+  include partial/navbar
+  include partial/header
+  <!-- Toast start -->
+  #toastNoAutohideSuccess.toast(role='alert' aria-live='assertive' aria-atomic='true' data-bs-delay="2000" style='opacity: 1; display: none')
+    .toast-header.text-success
+      i(data-feather='check-circle').me-2
+      strong.me-auto #{t('signup.signup-success')}
+      button.ms-2.mb-1.btn-close(type='button' data-bs-dismiss='toast' aria-label='Close')
+    .toast-body
+      | #{t('signup.signup-success-msg')}
+  #toastNoAutohideError.toast(role='alert' aria-live='assertive' aria-atomic='true' data-bs-delay="2000" style='opacity: 1; display: none')
+    .toast-header.text-danger
+      i(data-feather='alert-octagon').me-2
+      strong.me-auto #{t('signup.signup-failure')}
+      button.ms-2.mb-1.btn-close(type='button' data-bs-dismiss='toast' aria-label='Close')
+    .toast-body
+      | #{t('signup.signup-failure-msg')}
+
+  <!-- Signup Start -->
+  .container-xxl.py-2.mt-4
+    .container
+      .row.g-4.wow.fadeInUp(data-wow-delay='0.5s ')
+        center
+          form#registerForm.shadow.p-4.custom-width(action='/register' method='POST')
+            .text-center.wow.fadeInUp(data-wow-delay='0.1s')
+              h1.mb-5.bg-white.text-center.px-3 #{t('home.signup')}
+            .row.g-3
+              .col-12
+                .form-floating
+                  input#username.form-control(type='text' placeholder='Username' name='name')
+                  label(for='Username') #{t('signup.username')}
+              .col-12
+                .form-floating
+                  input#email.form-control(type='email' placeholder='Email Address' name='email')
+                  label(for='email') #{t('signup.email')}
+              .col-12
+                .form-floating
+                  input#password.form-control(type='password' placeholder='Password' name='password')
+                  label(for='password') #{t('signup.password')}
+              .col-12
+                button.btn.text-light.w-100.py-3(type='submit') #{t('home.signup')}
+              .col-12.text-center
+                p
+                  | #{t('signup.login')}
+                  a.text-decoration-none(href='/login') #{t('home.login')}
+  <!-- Signup End -->
+
+    script.
+      document.querySelector("#registerForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const data = {
+          name: formData.get("name"),
+          email: formData.get("email"),
+          password: formData.get("password"),
+        };
+        try {
+          const response = await $.ajax({
+            url: "/register",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+          });
+          if (response.status === 201) {
+            const toastElement = document.getElementById("toastNoAutohideSuccess");
+            toastElement.style.removeProperty("display");
+            setTimeout(() => {
+              window.location.href = "/login";
+            }, 2000);
+          } 
+        } catch (error) {
+          const toastElement = document.getElementById("toastNoAutohideError");
+          toastElement.style.removeProperty("display");
+          setTimeout(() => {
+            toastElement.style.display = "none";
+          }, 2000);
+        }
+      });
+  <!-- Toast end -->
+
+  include partial/footer

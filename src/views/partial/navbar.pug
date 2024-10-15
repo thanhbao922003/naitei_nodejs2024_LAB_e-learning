@@ -10,17 +10,58 @@ block content
     #navbarCollapse.collapse.navbar-collapse
       .navbar-nav.ms-auto.p-4.p-lg-0
         a.nav-item.nav-link(href='/') #{t('home.home')}
-        a.nav-item.nav-link(href='') #{t('home.course')}
-        a.nav-item.nav-link(href='#' id='userDropdown')
+        a.nav-item.nav-link(href='/course') #{t('home.course')}
+        a.nav-item.nav-link(href='' id='userDropdown')
           i.fa.fa-user
-        ul.dropdown-menu-nav
+        ul.dropdown-menu-nav-notLoggedIn
           li
-            a(href='') #{t('home.login')}
+            a(href='/login') #{t('home.login')}
           li
-            a(href='') #{t('home.signup')}
+            a(href='/signup') #{t('home.signup')}
+        ul.dropdown-menu-nav-loggedIn
+          li
+            a(href='/account') #{t('home.account')}
+          li
+            a#logout(href='/login') #{t('home.logout')}
 
       .nav-item.nav-link
         a.item-lang(href='/?lang=en' data-lang='en') En
         span   |  
         a.item-lang(href='/?lang=vi' data-lang='vi') Vi
   <!-- Navbar End -->
+
+  script.
+    $(document).ready(function () {
+      $("#userDropdown").on("click", function (e) {
+        e.preventDefault();
+        const token = { token: localStorage.getItem("access_token") };
+        // Kiểm tra nếu token có trong local storage
+        if (token.token) {
+          $.ajax({
+            url: "/verify",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(token),
+            // Kiểm tra token có hợp lệ không, nếu giải mã được thì toggle loggedIn
+            success: function (response) {
+              $(".dropdown-menu-nav-loggedIn").toggleClass("active");
+            },
+            // Nếu token không hợp lệ thì báo lỗi, toggle not logged in
+            error: function (error) {
+              $(".dropdown-menu-nav-notLoggedIn").toggleClass("active");
+            },
+          });
+        }
+        // nếu token không có trong localstorage
+        else {
+          $(".dropdown-menu-nav-notLoggedIn").toggleClass("active");
+        }
+      });
+
+      $("#logout").on("click", function (e) {
+        e.preventDefault();
+        localStorage.removeItem("access_token");
+        window.location.href = "/login";
+      });
+    });
+

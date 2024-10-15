@@ -372,25 +372,25 @@ li {
   border-radius: 5px;
 }
 
-.img-fluid.mt-2 img{
-  height : 200px;
-  width : 500px; 
+.img-fluid.mt-2 img {
+  height: 200px;
+  width: 500px;
 }
-.col-lg-3 .col-md-6 img{
-  height: 150px; 
-  width: 150px; 
+.col-lg-3 .col-md-6 img {
+  height: 150px;
+  width: 150px;
   border-radius: 50%;
 }
 
-.image-div.text-left.mt-3 img{
-  height: 40px; 
-  width: 40px; 
+.image-div.text-left.mt-3 img {
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   margin-right: 15px;
 }
 
 .badge.rounded-pill.text-white.bg-primary.px-4.py-2.m-2 {
-  font-size: 15px; 
+  font-size: 15px;
   font-weight: normal;
 }
 
@@ -629,7 +629,7 @@ li {
   max-width: 550px;
 }
 
-.dropdown-menu-nav {
+.dropdown-menu-nav-notLoggedIn {
   display: none;
   position: absolute;
   top: 60px;
@@ -641,16 +641,42 @@ li {
   z-index: 1000;
 }
 
-.dropdown-menu-nav.active {
+.dropdown-menu-nav-notLoggedIn.active {
   display: block;
 }
 
-.dropdown-menu-nav a {
+.dropdown-menu-nav-notLoggedIn a {
   color: rgba(0, 0, 0, 0.55);
   text-decoration: none;
   display: block;
 }
 
-.dropdown-menu-nav a:hover {
+.dropdown-menu-nav-notLoggedIn a:hover {
+  color: var(--primary);
+}
+
+.dropdown-menu-nav-loggedIn {
+  display: none;
+  position: absolute;
+  top: 60px;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  right: 5%;
+  z-index: 1000;
+}
+
+.dropdown-menu-nav-loggedIn.active {
+  display: block;
+}
+
+.dropdown-menu-nav-loggedIn a {
+  color: rgba(0, 0, 0, 0.55);
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu-nav-loggedIn a:hover {
   color: var(--primary);
 }

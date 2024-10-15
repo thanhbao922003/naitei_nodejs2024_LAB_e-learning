@@ -2,19 +2,7 @@ extends layout
 
 block content
   include partial/navbar
-  <!-- Header Start -->
-  .container-fluid.bg-primary.py-5.mb-5.page-header
-    .container.py-5
-      .row.justify-content-center
-        .col-lg-10.text-center
-          h1.display-3.text-white.animated.slideInDown #{t('home.course')}
-          nav(aria-label='breadcrumb')
-            ol.breadcrumb.justify-content-center
-              li.breadcrumb-item
-                a.text-white(href='/') #{t('home.home')}
-              li.breadcrumb-item
-                a.text-white(href='') #{t('home.course')}
-  <!-- Header End -->
+  include partial/header
 
   <!-- Courses Start -->
     .container-xxl.py-5

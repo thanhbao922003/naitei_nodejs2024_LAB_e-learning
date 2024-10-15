@@ -1,7 +1,7 @@
 ﻿doctype html
 html
   head
-    title= title
+    title= title || 'LAB'
     link(rel='stylesheet' href='/stylesheets/style.css')
     link(rel='stylesheet' href='/stylesheets/bootstrap.min.css')
     link(href="img/icon.png" rel="icon")
@@ -20,7 +20,6 @@ html
     script(src='/js/jquery-3.4.1.min.js')
     script(src='/js/bootstrap.bundle.min.js')
     script(src='/js/language-switcher.js')
-    script(src='/js/nav-active.js')
     script(src='/js/lang-nav-active.js')
 body
   block content

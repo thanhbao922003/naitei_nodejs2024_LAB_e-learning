@@ -1,0 +1,85 @@
+﻿extends layout
+
+block content
+  include partial/navbar
+  include partial/header
+
+  <!-- Toast start -->
+  #toastNoAutohideSuccess.toast(role='alert' aria-live='assertive' aria-atomic='true' data-bs-delay="2000" style='opacity: 1; display: none')
+    .toast-header.text-success
+      i(data-feather='check-circle').me-2
+      strong.me-auto #{t('login.login-success')}
+      button.ms-2.mb-1.btn-close(type='button' data-bs-dismiss='toast' aria-label='Close')
+    .toast-body
+      | #{t('login.login-success-msg')}
+  #toastNoAutohideError.toast(role='alert' aria-live='assertive' aria-atomic='true' data-bs-delay="2000" style='opacity: 1; display: none')
+    .toast-header.text-danger
+      i(data-feather='alert-octagon').me-2
+      strong.me-auto #{t('login.login-failure')}
+      button.ms-2.mb-1.btn-close(type='button' data-bs-dismiss='toast' aria-label='Close')
+    .toast-body
+      | #{t('login.login-failure-msg')}
+
+  <!-- Login Start -->
+  .container-xxl.py-2.mt-4
+    .container
+      .row.g-4.wow.fadeInUp(data-wow-delay='0.5s ')
+        center
+          form#loginForm.shadow.p-4.custom-width(action='/login' method='POST' class='form-login')
+            .text-center.wow.fadeInUp(data-wow-delay='0.1s')
+              h1.mb-5.bg-white.text-center.px-3 #{t('home.login')}
+            .row.g-3
+              .col-12
+                .form-floating
+                  input#email.form-control(type='email' placeholder='Email Address' name='email')
+                  label(for='email') #{t('login.email')}
+              .col-12
+                .form-floating
+                  input#password.form-control(type='password' placeholder='Password' name='password')
+                  label(for='password') #{t('login.password')}
+              .col-12
+                p
+                  a(href='#') #{t('login.forgot-password')}
+              .col-12
+                button.btn.text-light.w-100.py-3(type='submit') #{t('home.login')}
+                script.localStorage.setItem('myKey', `${token}`)
+              .col-12.text-center
+                p
+                  | #{t('login.signup')}
+                  a.text-decoration-none(href='/signup') #{t('home.signup')}
+  <!-- Login End -->
+
+    script.
+      document.querySelector("#loginForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const data = {
+          email: formData.get("email"),
+          password: formData.get("password"),
+        };
+        try {
+          const response = await $.ajax({
+            url: "/login",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+          });
+          if (response.status === 200) {
+            localStorage.setItem("access_token", response.token);
+            const toastElement = document.getElementById("toastNoAutohideSuccess");
+            toastElement.style.removeProperty("display");
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 2000);
+          } 
+        } catch (error) {
+          const toastElement = document.getElementById("toastNoAutohideError");
+          toastElement.style.removeProperty("display");
+          setTimeout(() => {
+            toastElement.style.display = "none";
+          }, 2000);
+        }
+      });
+  <!-- Toast end -->
+
+  include partial/footer
