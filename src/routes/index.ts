@@ -2,13 +2,16 @@
 import i18nextMiddleware from "i18next-http-middleware";
 import i18next from "../i18n";
 import setLocaleMiddleware from "../middleware/setLocaleMiddleware";
-import { getHomePage } from "@src/controller/home.controller";
+import courseRoute from "./course.routes"
+import homeRoute from "./home.routes"
 
 const router = Router();
 
 router.use(i18nextMiddleware.handle(i18next));
 router.use(setLocaleMiddleware);
 
-router.use(getHomePage);
+router.use('/', homeRoute);
+
+router.use('/courses',courseRoute);
 
 export default router;

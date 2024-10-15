@@ -99,18 +99,3 @@
     },
   });
 })(jQuery);
-
-document.addEventListener("DOMContentLoaded", function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const currentLang = urlParams.get("lang") || "en";
-
-  const langLinks = document.querySelectorAll(".item-lang");
-
-  langLinks.forEach(function (link) {
-    if (link.getAttribute("data-lang") === currentLang) {
-      link.classList.add("active");
-    } else {
-      link.classList.remove("active");
-    }
-  });
-});

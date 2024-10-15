@@ -602,3 +602,33 @@ li {
   border-radius: 3px;
   background-color: #0ed44c;
 }
+
+.custom-width {
+  max-width: 550px;
+}
+
+.dropdown-menu-nav {
+  display: none;
+  position: absolute;
+  top: 60px;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  right: 5%;
+  z-index: 1000;
+}
+
+.dropdown-menu-nav.active {
+  display: block;
+}
+
+.dropdown-menu-nav a {
+  color: rgba(0, 0, 0, 0.55);
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu-nav a:hover {
+  color: var(--primary);
+}

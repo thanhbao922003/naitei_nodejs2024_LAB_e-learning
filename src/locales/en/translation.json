@@ -2,6 +2,8 @@
   "home": {
     "home": "Home",
     "course": "Courses",
+    "login": "Login",
+    "signup": "Sign up",
     "Carousel": "Best E-learning platform",
     "Carousel1": "Learn Job ready skills from free online courses",
     "Carousel2": "Explore a wide range of courses designed to enhance your expertise in technology, business, arts, and more. Start learning today!",
@@ -45,6 +47,12 @@
     "Subscribe": "Subscribe",
     "Copy-right": "All Right Reserved.",
     "PAID": "PAID",
-    "FREE": "FREE"
+    "FREE": "FREE",
+    "title": "LAB",
+    "message": "Welcome to LAB"
+  },
+  "course": {
+    "course_error": "Failed to load courses data.",
+    "course_filter_error": "Internal server error"
   }
 }
