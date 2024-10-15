@@ -3,19 +3,30 @@ import { Course } from '../entity/Course';
 import { Enrollment } from '../entity/Enrollment';
 import { Section } from '../entity/Section';
 import { Lesson } from '../entity/Lesson';
-import { Component } from '../entity/Component'; 
+import { User } from '../entity/User';
+
 
 const enrollmentRepository = AppDataSource.getRepository(Enrollment);
 const courseRepository = AppDataSource.getRepository(Course);
-const componentRepository = AppDataSource.getRepository(Component);
 const sectionRepository = AppDataSource.getRepository(Section);
 const lessonRepository = AppDataSource.getRepository(Lesson);
+const userRepository = AppDataSource.getRepository(User);
+
 
 export async function getAllCourses() {
   return await courseRepository.find({
     select: ['id', 'name', 'price', 'description', 'average_rating', 'created_at', 'updated_at'],
     order: { name: 'ASC' },
   });
+}
+
+export async function getProfessorByCourse(courseId: number) {
+  const course = await courseRepository.findOne({
+    where: { id: courseId },
+    relations: {professor: true}
+  });
+
+  return course?.professor;
 }
 
 export const getCoursesWithSectionsAndHours = async () => {
@@ -51,26 +62,12 @@ export async function getSectionsWithLessons(courseId: number) {
     sections.map(async (section) => {
       const lessons = await lessonRepository.find({
         where: { section: { id: section.id } },
-        select: ['id', 'name', 'description', 'time', 'created_at', 'updated_at'],
+        select: ['id', 'name','type','content', 'description', 'time', 'created_at', 'updated_at'],
       });
-
-      const lessonsWithComponents = await Promise.all(
-        lessons.map(async (lesson) => {
-          const components = await componentRepository.find({
-            where: { lesson: { id: lesson.id } },
-          });
-
-          return { 
-            ...lesson, 
-            components, 
-            enrollmentLessonId: lesson.id 
-          };
-        })
-      );
 
       return {
         ...section,
-        lessons: lessonsWithComponents,
+        lessons,
         total_time: lessons.reduce((sum, lesson) => sum + lesson.time, 0),
       };
     })
@@ -78,13 +75,15 @@ export async function getSectionsWithLessons(courseId: number) {
 }
 
 export async function countEnrolledUsersInCourse(courseId: number): Promise<number> {
-  return await enrollmentRepository.count({
+  const count = await enrollmentRepository.count({
     where: {
       course: { id: courseId },
       user: { role: 'user' },
     },
     relations: ['user'],
   });
+
+  return count;
 }
 
 interface courseFilter {
@@ -100,19 +99,13 @@ interface courseSorting {
   order?: 'ASC' | 'DESC';
 }
 
-
-export const getCourseById = async (id: number) => {
-  return await courseRepository.findOne({
-    where: { id: id },
-  });
-};
-
 export async function filterAndSortCourses(
   filters: courseFilter,
-  sorting: courseSorting,
+  sorting: courseSorting
 ) {
   const query = courseRepository.createQueryBuilder('course');
 
+  // Apply filter
   if (filters.professorId) {
     query.andWhere('course.professor_id = :professorId', {
       professorId: filters.professorId,
@@ -137,11 +130,19 @@ export async function filterAndSortCourses(
     query.andWhere('course.name LIKE :name', { name: `%${filters.name}%` });
   }
 
+  // Apply sorting
   if (sorting.sortBy) {
     query.orderBy(`course.${sorting.sortBy}`, sorting.order || 'ASC');
   } else {
+    // Default sorting by creation date
     query.orderBy('course.created_at', 'DESC');
   }
-  
+
   return await query.getMany();
+}
+
+export async function getCourseById(id: number) {
+  return await courseRepository.findOne({
+    where: { id: id },
+  });
 }

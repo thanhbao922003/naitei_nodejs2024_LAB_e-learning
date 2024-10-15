@@ -5,8 +5,7 @@ const router: Router = Router();
 
 
 router.get('/', courseController.courseShowGet);  
-
-router.post('/filter', courseController.filterAndSort)
-
+router.post('/', courseController.filterAndSort);
+router.get('/:id',courseController.getCourseDetail);
 
 export default router;

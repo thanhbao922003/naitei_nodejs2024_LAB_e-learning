@@ -2,8 +2,6 @@
   "home": {
     "home": "Home",
     "course": "Courses",
-    "login": "Login",
-    "signup": "Sign up",
     "Carousel": "Best E-learning platform",
     "Carousel1": "Learn Job ready skills from free online courses",
     "Carousel2": "Explore a wide range of courses designed to enhance your expertise in technology, business, arts, and more. Start learning today!",
@@ -52,7 +50,29 @@
     "message": "Welcome to LAB"
   },
   "course": {
+    "course_error_id_required": "Course ID is required",
+    "course_error_notfound": "Course not found",
     "course_error": "Failed to load courses data.",
-    "course_filter_error": "Internal server error"
+    "course_filter_error": "Internal server error",
+    "student": "Learners",
+    "begin": "Beginner",
+    "instructor_name": "Instructor Name",
+    "about_course": "About this Course",
+    "skill": "Skill you'll gain",
+    "section": "Section",
+    "hours": "Hours",
+    "course_lesson_error": "No lessons available",
+    "course_professor": "About the Instructor",
+    "professor_job": "Developer",
+    "professor_rating": "Instructor rating",
+    "professor_review": "Reviews",
+    "professor_student": "Students",
+    "professor_course": "Courses",
+    "duration": "Duration",
+    "lectures": "Lectures",
+    "enrolled": "Enrolled",
+    "certificate": "Certificate",
+    "yes" : "Yes",
+    "share" : "Share this Course"
   }
 }

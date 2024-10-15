@@ -2,8 +2,6 @@
   "home": {
     "home": "Trang chủ",
     "course": "Các khóa học",
-    "login": "Đăng nhập",
-    "signup": "Đăng ký",
     "Carousel": "Nền tảng học trực tuyến tốt nhất",
     "Carousel1": "Học các kỹ năng sẵn sàng cho công việc từ các khóa học trực tuyến miễn phí",
     "Carousel2": "Khám phá nhiều khóa học được thiết kế để nâng cao chuyên môn của bạn về công nghệ, kinh doanh, nghệ thuật, v.v. Hãy bắt đầu học ngay hôm nay!",
@@ -52,7 +50,29 @@
     "message": "Chào mừng bạn đến với LAB"
   },
   "course": {
-    "course_error": "Không thể tải dữ liệu khóa học.",
-    "course_filter_error": "Lỗi máy chủ nội bộ"
+    "course_error_id_required": "Yêu cầu khóa học ID",
+    "course_error_notfound": "Khóa học không tìm thấy",
+    "course_error": "Không tải được dữ liệu khóa học.",
+    "course_filter_error": "Lỗi máy chủ nội bộ",
+    "student": "Học viên",
+    "begin": "Người mới bắt đầu",
+    "instructor_name": "Tên giảng viên",
+    "about_course": "Về khóa học này",
+    "skill": "Kỹ năng bạn sẽ đạt được",
+    "section": "Phần",
+    "hours": "Giờ",
+    "course_lesson_error": "Không có bài học nào",
+    "course_professor": "Về giảng viên",
+    "professor_job": "Nhà phát triển",
+    "professor_rating": "Đánh giá giảng viên",
+    "professor_review": "Đánh giá",
+    "professor_student": "Học viên",
+    "professor_course": "Khóa học",
+    "duration": "Thời gian",
+    "lectures": "Bài giảng",
+    "enrolled": "Đã đăng ký",
+    "certificate": "Chứng chỉ",
+    "yes": "Có",
+    "share": "Chia sẻ khóa học này"
   }
 }
