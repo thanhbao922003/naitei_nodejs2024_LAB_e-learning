@@ -2,7 +2,7 @@
 
 block content
   include partial/navbar
-  <!-- Carousel Start -->
+  //- <!-- Carousel Start -->
   .container-fluid.p-0.mb-4
     .owl-carousel.header-carousel.position-relative
       .owl-carousel-item.position-relative
@@ -18,9 +18,9 @@ block content
                 p.text-white.mb-4.pb-2
                   | #{t('home.Carousel2')}
                 a.btn.text-light.py-3.px-5.mt-2(href='') #{t('home.join')}
-  <!-- Carousel End -->
+  //- <!-- Carousel End -->
 
-  <!-- Service Start -->
+  //- <!-- Service Start -->
   .container-xxl.py-5
     .container
       .row.g-2.text-center
@@ -57,9 +57,9 @@ block content
               h5.mb-3 #{t('home.Service-item4')}
               p
                 | #{t('home.Service-item4-content')}
-  <!-- Service End -->
+  //- <!-- Service End -->
 
-  <!-- About Start -->
+  //- <!-- About Start -->
   .container-xxl.py-5
     .container
       .row.g-5
@@ -98,9 +98,9 @@ block content
               p.mb-0
                 i.fa.fa-arrow-right.me-2
                 | #{t('home.About-item6')}
-  <!-- About End -->
+  //- <!-- About End -->
 
-  <!-- Banner Start -->
+  //- <!-- Banner Start -->
   .container-xxl.py-5.pt-5.bg-light
     .container
       .row.g-5
@@ -112,186 +112,40 @@ block content
         .col-lg-6.wow.fadeInUp(data-wow-delay='0.1s')
           .position-relative.h-100
             img.img-fluid.position-absolute.w-100.h-100(src='img/banner-1.jpg' alt='')
-  <!-- Banner End -->
+  //- <!-- Banner End -->
 
-  <!-- Courses Start -->
+  //- <!-- Courses Start -->
   .container-xxl.py-5
     .container
       .text-center.wow.fadeInUp(data-wow-delay='0.1s')
         h6.section-title.bg-white.text-center.px-3 #{t('home.Courses-title')}
         h1.mb-5.custom-color #{t('home.Courses-content')}
       .row.g-4.py-2
-        .col-lg-3.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
-          .course-item.shadow
-            .position-relative.overflow-hidden.text-light.image
-              img.img-fluid(src='img/course-1.jpg' alt='')
-              .px-2.py-1.fw-bold.text-uppercase.custom-courses-free
-                | #{t('home.FREE')}
-            .p-2.pb-0
-              h5.mb-1
-                a.text-dark(href='/course/detail') HTML Course for Beginners 
-            .d-flex
-              small.flex-fill.py-1.px-2
-                i.fa.fa-star.text-warning.me-2
-                | 4.55
-            .d-flex
-              small.flex-fill.text-left.p-2.px-2
-                i.fa.fa-clock.me-2
-                | 2.0 #{t('home.Hrs')}
-              small.text-primary.py-1.px-2.fw-bold.fs-6
-                a(href='#')
-                  | #{t('home.Enroll')}
-                i.fa.fa-chevron-right.me-2.fs-10
-        .col-lg-3.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
-          .course-item.shadow
-            .position-relative.overflow-hidden.text-light.image
-              img.img-fluid(src='img/course-1.jpg' alt='')
-              .px-2.py-1.fw-bold.text-uppercase.custom-courses-free
-                | #{t('home.FREE')}
-            .p-2.pb-0
-              h5.mb-1
-                a.text-dark(href='/course/detail') HTML Course for Beginners 
-            .d-flex
-              small.flex-fill.py-1.px-2
-                i.fa.fa-star.text-warning.me-2
-                | 4.55
-            .d-flex
-              small.flex-fill.text-left.p-2.px-2
-                i.fa.fa-clock.me-2
-                | 2.0 #{t('home.Hrs')}
-              small.text-primary.py-1.px-2.fw-bold.fs-6
-                a(href='#')
-                  | #{t('home.Enroll')}
-                i.fa.fa-chevron-right.me-2.fs-10
-        .col-lg-3.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
-          .course-item.shadow
-            .position-relative.overflow-hidden.text-light.image
-              img.img-fluid(src='img/course-1.jpg' alt='')
-              .px-2.py-1.fw-bold.text-uppercase.custom-courses-free
-                | #{t('home.FREE')}
-            .p-2.pb-0
-              h5.mb-1
-                a.text-dark(href='/course/detail') HTML Course for Beginners 
-            .d-flex
-              small.flex-fill.py-1.px-2
-                i.fa.fa-star.text-warning.me-2
-                | 4.55
-            .d-flex
-              small.flex-fill.text-left.p-2.px-2
-                i.fa.fa-clock.me-2
-                | 2.0 #{t('home.Hrs')}
-              small.text-primary.py-1.px-2.fw-bold.fs-6
-                a(href='#')
-                  | #{t('home.Enroll')}
-                i.fa.fa-chevron-right.me-2.fs-10
-        .col-lg-3.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
-          .course-item.shadow
-            .position-relative.overflow-hidden.text-light.image
-              img.img-fluid(src='img/course-1.jpg' alt='')
-              .px-2.py-1.fw-bold.text-uppercase.custom-courses-free
-                | #{t('home.FREE')}
-            .p-2.pb-0
-              h5.mb-1
-                a.text-dark(href='/course/detail') HTML Course for Beginners 
-            .d-flex
-              small.flex-fill.py-1.px-2
-                i.fa.fa-star.text-warning.me-2
-                | 4.55
-            .d-flex
-              small.flex-fill.text-left.p-2.px-2
-                i.fa.fa-clock.me-2
-                | 2.0 #{t('home.Hrs')}
-              small.text-primary.py-1.px-2.fw-bold.fs-6
-                a(href='#')
-                  | #{t('home.Enroll')}
-                i.fa.fa-chevron-right.me-2.fs-10
-        .col-lg-3.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
-          .course-item.shadow
-            .position-relative.overflow-hidden.text-light.image
-              img.img-fluid(src='img/course-2.jpg' alt='')
-              .px-2.py-1.fw-bold.text-uppercase.custom-courses-paid
-                | #{t('home.PAID')}
-            .p-2.pb-0
-              h5.mb-1
-                | Front End Development - CSS
-            .d-flex
-              small.flex-fill.py-1.px-2
-                i.fa.fa-star.text-warning.me-2
-                | 4.55
-            .d-flex
-              small.flex-fill.text-left.p-2.px-2
-                i.fa.fa-clock.me-2
-                | 4.0 #{t('home.Hrs')}
-              small.text-primary.py-1.px-2.fw-bold.fs-6
-                a(href='#')
-                  | #{t('home.Enroll')}
-                i.fa.fa-chevron-right.me-2.fs-10
-        .col-lg-3.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
-          .course-item.shadow
-            .position-relative.overflow-hidden.text-light.image
-              img.img-fluid(src='img/course-2.jpg' alt='')
-              .px-2.py-1.fw-bold.text-uppercase.custom-courses-paid
-                | #{t('home.PAID')}
-            .p-2.pb-0
-              h5.mb-1
-                | Front End Development - CSS
-            .d-flex
-              small.flex-fill.py-1.px-2
-                i.fa.fa-star.text-warning.me-2
-                | 4.55
-            .d-flex
-              small.flex-fill.text-left.p-2.px-2
-                i.fa.fa-clock.me-2
-                | 4.0 #{t('home.Hrs')}
-              small.text-primary.py-1.px-2.fw-bold.fs-6
-                a(href='#')
-                  | #{t('home.Enroll')}
-                i.fa.fa-chevron-right.me-2.fs-10
-        .col-lg-3.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
-          .course-item.shadow
-            .position-relative.overflow-hidden.text-light.image
-              img.img-fluid(src='img/course-2.jpg' alt='')
-              .px-2.py-1.fw-bold.text-uppercase.custom-courses-paid
-                | #{t('home.PAID')}
-            .p-2.pb-0
-              h5.mb-1
-                | Front End Development - CSS
-            .d-flex
-              small.flex-fill.py-1.px-2
-                i.fa.fa-star.text-warning.me-2
-                | 4.55
-            .d-flex
-              small.flex-fill.text-left.p-2.px-2
-                i.fa.fa-clock.me-2
-                | 4.0 #{t('home.Hrs')}
-              small.text-primary.py-1.px-2.fw-bold.fs-6
-                a(href='#')
-                  | #{t('home.Enroll')}
-                i.fa.fa-chevron-right.me-2.fs-10
-        .col-lg-3.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
-          .course-item.shadow
-            .position-relative.overflow-hidden.text-light.image
-              img.img-fluid(src='img/course-2.jpg' alt='')
-              .px-2.py-1.fw-bold.text-uppercase.custom-courses-paid
-                | #{t('home.PAID')}
-            .p-2.pb-0
-              h5.mb-1
-                | Front End Development - CSS
-            .d-flex
-              small.flex-fill.py-1.px-2
-                i.fa.fa-star.text-warning.me-2
-                | 4.55
-            .d-flex
-              small.flex-fill.text-left.p-2.px-2
-                i.fa.fa-clock.me-2
-                | 4.0 #{t('home.Hrs')}
-              small.text-primary.py-1.px-2.fw-bold.fs-6
-                a(href='#')
-                  | #{t('home.Enroll')}
-                i.fa.fa-chevron-right.me-2.fs-10
-
+        if courses && courses.length > 0
+          each course in courses
+            .col-lg-3.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
+              .course-item.shadow
+                .position-relative.overflow-hidden.text-light.image
+                  img.img-fluid(src='img/course-1.jpg' alt=course.name)
+                  .px-2.py-1.fw-bold.text-uppercase
+                    | #{course.price ? t('home.FREE') : t('home.PAID')}
+                .p-2.pb-0
+                  h5.mb-1
+                    a.text-dark(href=`/course/${course.id}`) #{course.name}
+                  .d-flex
+                    small.flex-fill.py-1.px-2
+                      i.fa.fa-star.text-warning.me-2
+                      | #{course.average_rating}
+                    small.flex-fill.text-left.p-2
+                      i.fa.fa-clock.me-2
+                      | #{course.totalHours}#{t('home.Hrs')}
+                    small.text-primary.py-1.px-2.fw-bold.fs-6
+                      a(href=`/enroll/${course.id}`) #{t('home.Enroll')}
+                      i.fa.fa-chevron-right.me-2.fs-10
+        else
+          p.text-center #{t('home.NoCoursesAvailable')}
   .container.text-center
-    a.btn.text-light.py-3.px-5.mt-2.mb-5(href='courses.html') #{t('home.All-courses')}
-  <!-- Courses End -->
+    a.btn.text-light.py-3.px-5.mt-2.mb-5(href='/courses') #{t('home.All-courses')}
+  //- <!-- Courses End -->
 
   include partial/footer

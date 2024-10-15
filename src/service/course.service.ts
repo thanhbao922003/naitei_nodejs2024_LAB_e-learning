@@ -1,6 +1,91 @@
 import { AppDataSource } from '../repos/db';
 import { Course } from '../entity/Course';
-import { getRepository } from 'typeorm';
+import { Enrollment } from '../entity/Enrollment';
+import { Section } from '../entity/Section';
+import { Lesson } from '../entity/Lesson';
+import { Component } from '../entity/Component'; 
+
+const enrollmentRepository = AppDataSource.getRepository(Enrollment);
+const courseRepository = AppDataSource.getRepository(Course);
+const componentRepository = AppDataSource.getRepository(Component);
+const sectionRepository = AppDataSource.getRepository(Section);
+const lessonRepository = AppDataSource.getRepository(Lesson);
+
+export async function getAllCourses() {
+  return await courseRepository.find({
+    select: ['id', 'name', 'price', 'description', 'average_rating', 'created_at', 'updated_at'],
+    order: { name: 'ASC' },
+  });
+}
+
+export const getCoursesWithSectionsAndHours = async () => {
+  const courses = await getAllCourses();
+
+  if (courses.length === 0) {
+    throw new Error('No courses found.');
+  }
+
+  return await Promise.all(
+    courses.map(async (course) => {
+      const sectionsWithLessons = await getSectionsWithLessons(course.id);
+      const totalHours = sectionsWithLessons.reduce(
+        (sum, section) => sum + section.total_time,
+        0
+      );
+
+      return {
+        ...course,
+        sectionsWithLessons,
+        totalHours,
+      };
+    })
+  );
+};
+
+export async function getSectionsWithLessons(courseId: number) {
+  const sections = await sectionRepository.find({
+    where: { course: { id: courseId } },
+  });
+
+  return await Promise.all(
+    sections.map(async (section) => {
+      const lessons = await lessonRepository.find({
+        where: { section: { id: section.id } },
+        select: ['id', 'name', 'description', 'time', 'created_at', 'updated_at'],
+      });
+
+      const lessonsWithComponents = await Promise.all(
+        lessons.map(async (lesson) => {
+          const components = await componentRepository.find({
+            where: { lesson: { id: lesson.id } },
+          });
+
+          return { 
+            ...lesson, 
+            components, 
+            enrollmentLessonId: lesson.id 
+          };
+        })
+      );
+
+      return {
+        ...section,
+        lessons: lessonsWithComponents,
+        total_time: lessons.reduce((sum, lesson) => sum + lesson.time, 0),
+      };
+    })
+  );
+}
+
+export async function countEnrolledUsersInCourse(courseId: number): Promise<number> {
+  return await enrollmentRepository.count({
+    where: {
+      course: { id: courseId },
+      user: { role: 'user' },
+    },
+    relations: ['user'],
+  });
+}
 
 interface courseFilter {
   professorId?: number;
@@ -15,13 +100,6 @@ interface courseSorting {
   order?: 'ASC' | 'DESC';
 }
 
-const courseRepository = AppDataSource.getRepository(Course);
-
-export const getAllCourses = async () => {
-  return await courseRepository.find({
-    order: { name: 'ASC' },
-  });
-};
 
 export const getCourseById = async (id: number) => {
   return await courseRepository.findOne({
@@ -35,7 +113,6 @@ export async function filterAndSortCourses(
 ) {
   const query = courseRepository.createQueryBuilder('course');
 
-  // Apply filter
   if (filters.professorId) {
     query.andWhere('course.professor_id = :professorId', {
       professorId: filters.professorId,
@@ -60,11 +137,9 @@ export async function filterAndSortCourses(
     query.andWhere('course.name LIKE :name', { name: `%${filters.name}%` });
   }
 
-  // Apply sorting
   if (sorting.sortBy) {
     query.orderBy(`course.${sorting.sortBy}`, sorting.order || 'ASC');
   } else {
-    // Default sorting by creation date
     query.orderBy('course.created_at', 'DESC');
   }
   
