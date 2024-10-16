@@ -7,6 +7,7 @@ import { Entity,
   JoinColumn 
 } from 'typeorm';
 import { Section } from './Section';
+import { LessonType } from '../enum/lesson.enum';
 
 @Entity('lessons')
 export class Lesson {
@@ -19,6 +20,18 @@ export class Lesson {
 
     @Column()
       name!: string;
+
+    @Column('integer')
+    progress!: number;
+
+    @Column({
+      type: 'enum',
+      enum: LessonType,
+    })
+      type!: string;
+
+    @Column('text')
+      content!: string;
 
     @Column('text')
       description!: string;
