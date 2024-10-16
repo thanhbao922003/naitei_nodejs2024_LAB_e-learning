@@ -73,6 +73,7 @@
     "enrolled": "Enrolled",
     "certificate": "Certificate",
     "yes" : "Yes",
-    "share" : "Share this Course"
+    "share" : "Share this Course",
+    "progress": "Progress"
   }
 }

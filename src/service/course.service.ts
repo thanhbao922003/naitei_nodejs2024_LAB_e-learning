@@ -62,13 +62,14 @@ export async function getSectionsWithLessons(courseId: number) {
     sections.map(async (section) => {
       const lessons = await lessonRepository.find({
         where: { section: { id: section.id } },
-        select: ['id', 'name','type','content', 'description', 'time', 'created_at', 'updated_at'],
+        select: ['id', 'name','type','content','progress', 'description', 'time', 'created_at', 'updated_at'],
       });
 
       return {
         ...section,
         lessons,
         total_time: lessons.reduce((sum, lesson) => sum + lesson.time, 0),
+        lessonIds: lessons.map(lesson => lesson.id)
       };
     })
   );
