@@ -98,6 +98,11 @@
     "enrolled": "Enrolled",
     "certificate": "Certificate",
     "yes": "Yes",
-    "share": "Share this Course"
+    "share": "Share this Course",
+    "progress": "Progress",
+    "progress_error": "Error updating lesson progress",
+    "userid_courseid_required": "User ID and Course ID are required",
+    "purchase_course_error": "You do not have access to this course",
+    "enrollment_error": "Enrollment or Course not found"
   }
 }

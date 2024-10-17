@@ -98,6 +98,11 @@
     "enrolled": "Đã đăng ký",
     "certificate": "Chứng chỉ",
     "yes": "Có",
-    "share": "Chia sẻ khóa học này"
+    "share": "Chia sẻ khóa học này",
+    "progress": "Tiến độ",
+    "progress_error": "Lỗi cập nhật tiến độ",
+    "userid_courseid_required": "Yêu cầu UserID và CourseID",
+    "purchase_course_error": "Bạn chưa mua khóa học này",
+    "enrollment_error": "Không tìm thấy khóa học"
   }
 }
