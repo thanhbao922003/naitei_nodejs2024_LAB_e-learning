@@ -2,6 +2,10 @@
   "home": {
     "home": "Home",
     "course": "Courses",
+    "login": "Login",
+    "signup": "Sign up",
+    "account": "Account",
+    "logout": "Logout",
     "Carousel": "Best E-learning platform",
     "Carousel1": "Learn Job ready skills from free online courses",
     "Carousel2": "Explore a wide range of courses designed to enhance your expertise in technology, business, arts, and more. Start learning today!",
@@ -45,9 +49,30 @@
     "Subscribe": "Subscribe",
     "Copy-right": "All Right Reserved.",
     "PAID": "PAID",
-    "FREE": "FREE",
-    "title": "LAB",
-    "message": "Welcome to LAB"
+    "FREE": "FREE"
+  },
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "forgot-password": "Forgot Password?",
+    "signup": "Don't have an account?",
+    "login-success": "Login successful",
+    "login-failure": "Login failed",
+    "logout": "Logout successful",
+    "login-failure-msg": "Incorrect email or password.",
+    "login-success-msg": "You will be redirected to the home page in 2 seconds.",
+    "authentication": "User is authenticated",
+    "not-authentication": "User is not authenticated"
+  },
+  "signup": {
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "login": "Already have an account?",
+    "signup-success": "Registration successful",
+    "signup-failure": "Registration failed",
+    "signup-success-msg": "You will be redirected to the login page in 2 seconds.",
+    "signup-failure-msg": "Username or email already exists."
   },
   "course": {
     "course_error_id_required": "Course ID is required",
@@ -72,7 +97,7 @@
     "lectures": "Lectures",
     "enrolled": "Enrolled",
     "certificate": "Certificate",
-    "yes" : "Yes",
-    "share" : "Share this Course"
+    "yes": "Yes",
+    "share": "Share this Course"
   }
 }

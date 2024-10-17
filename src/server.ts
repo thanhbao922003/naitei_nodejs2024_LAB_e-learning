@@ -14,6 +14,9 @@ app.use(express.static(staticDir));
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "../src/views"));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(router);
 
 export default app;
