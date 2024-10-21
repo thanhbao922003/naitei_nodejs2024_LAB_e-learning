@@ -2,7 +2,19 @@ extends layout
 
 block content
   include partial/navbar
-  include partial/header
+  <!-- Header Start -->
+  .container-fluid.bg-primary.py-5.mb-5.page-header
+    .container.py-5
+      .row.justify-content-center
+        .col-lg-10.text-center
+          h1.display-3.text-white.animated.slideInDown #{t('home.course')}
+          nav(aria-label='breadcrumb')
+            ol.breadcrumb.justify-content-center
+              li.breadcrumb-item
+                a.text-white(href='/') #{t('home.home')}
+              li.breadcrumb-item
+                a.text-white(href='') #{t('home.course')}
+  <!-- Header End -->
 
   <!-- Courses Start -->
     .container-xxl.py-2
@@ -30,7 +42,7 @@ block content
                       i.fa.fa-clock.me-2
                       |  #{totalHours}h
                   .image-div.text-left.mt-3
-                    img(src='/img/testimonial-2.jpg' alt='', )
+                    img(src='/img/testimonial-2.jpg', alt='', )
                     span
                       b #{t('course.instructor_name')} - #{name}
             .container-fluid.wow.fadeInUp.mt-5.tabs
@@ -52,16 +64,23 @@ block content
                         .accordion-item
                           h2.accordion-header
                             - var sectionId = 'flush-collapse' + section.id
-                            button.accordion-button.collapsed(type='button' data-bs-toggle='collapse', data-bs-target=`#${sectionId}`, aria-expanded='false', aria-controls=sectionId)
+                            button.accordion-button.collapsed(type='button', data-bs-toggle='collapse', data-bs-target=`#${sectionId}`, aria-expanded='false', aria-controls=sectionId)
                               | #{section.name}
                           .accordion-collapse.collapse(id=sectionId, data-bs-parent='#accordionFlushExample')
                             .accordion-body
                               if section.lessons.length > 0
-                                ul
+                                ul 
                                   each lesson in section.lessons
                                     li
                                       i.fa.fa-video.text-danger
-                                      | #{lesson.name} - #{lesson.time} #{t('course.hours')} 
+                                        | #{lesson.name} - #{lesson.time} #{t('course.hours')} 
+                                        br 
+                                        | - #{lesson.type}: #{lesson.content}
+                                        br  
+                                      span.ms-3 Progress: #{lesson.progress}%
+                                       form(method='POST', action=`/enrollments/${enrollment.course_id}/${lesson.id}`)
+                                        input(type='hidden', name='lessonId', value=lesson.id)
+                                        button.btn.btn-primary(type='submit') Mark as done
                               else
                                 p #{t('course.course_lesson_error')} 
                 #Instructor.container
@@ -69,7 +88,7 @@ block content
                   .image-div.text-left.mt-4
                     .row
                       .col-lg-3.col-md-6
-                        img(src='/img/testimonial-2.jpg' alt='')
+                        img(src='/img/testimonial-2.jpg', alt='')
                       .col-lg-9.col-md-6.mt-2
                         h5 #{name}
                         p #{t('course.professor_job')}
@@ -95,28 +114,24 @@ block content
                       | Curriculum Director at Codecademy and creative technologist. She has designed a range of Codecademy courses, including Learn HTML, Learn C#, Learn Alexa, and the beginner-friendly Learn How to Code.
           .col-lg-3.col-md-6.shadow.wow.fadeInUp(data-wow-delay='0.3s')
             .image.text-center
-              img.img-fluid.mt-2(src='/img/course-1.jpg' alt='')
-            .buttons
-              if paidCourse
-                a.text-decoration-none.text-white.btn.p-3.w-100.mb-2(href=`/enrollments/${course.id}`) #{t('home.Enroll')}
-              else
-                h4.mt-2.p-2
-                | $
-                small
-                  del #{course.price}
-                a.text-decoration-none.text-white.btn.p-3.w-100.mb-2(href=`/payments/${course.id}`) #{t('home.Buy')}
+              img.img-fluid.mt-2(src='/img/course-1.jpg', alt='')
             .list.mt-2
               .list1.d-flex.justify-content-between.pt-2.border-bottom
                 p
                   i.fa.fa-clock
                   |  #{t('course.duration')}
                 p 
-                  | #{totalHours}
+                    | #{totalHours}
               .list2.d-flex.justify-content-between.pt-2.border-bottom
                 p
                   i.fa.fa-book
                   |  #{t('course.lectures')}
                 p #{totalLessons}
+              .list6.d-flex.justify-content-between.pt-2.border-bottom
+                p
+                  i.fa.fa-list
+                  |  #{t('course.progress')}
+                p #{enrollment.progress} / 100
               .list3.d-flex.justify-content-between.pt-2.border-bottom
                 p
                   i.fa.fa-bolt
@@ -131,3 +146,4 @@ block content
                 i.fa.fa-share
                 a(href='')  #{t('course.share')}
   include partial/footer
+  

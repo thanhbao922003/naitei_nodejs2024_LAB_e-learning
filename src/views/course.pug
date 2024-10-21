@@ -30,8 +30,19 @@ block content
                       i.fa.fa-clock.me-2
                       | #{course.totalHours}#{t('home.Hrs')}
                     small.text-primary.py-1.px-2.fw-bold.fs-6
-                      a(href=`/enroll/${course.id}`) #{t('home.Enroll')}
-                      i.fa.fa-chevron-right.me-2.fs-10
-        else
-          p.text-center #{t('home.NoCoursesAvailable')}
+                      if isLoggedIn
+                        if purchasedCourses.some(purchasedCourse => purchasedCourse.id === course.id)
+                          a(href=`/enrollments/${course.id}`)
+                            | #{t('home.Enroll')}  
+                            i.fa.fa-chevron-right.me-2.fs-10
+                        else
+                          a(href=`/payments/${course.id}`)
+                            | #{course.price}$ #{t('home.Buy')}
+                            i.fa.fa-chevron-right.me-2.fs-10
+                      else
+                        a(href=`/login`) 
+                          | #{course.price}$  #{t('home.Buy')}  
+                          i.fa.fa-chevron-right.me-2.fs-10
+          else
+                p.text-center #{t('home.NoCoursesAvailable')}
   include partial/footer

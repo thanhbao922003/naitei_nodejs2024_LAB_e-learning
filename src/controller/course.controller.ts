@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
-import { getCoursesWithSectionsAndHours, filterAndSortCourses, getSectionsWithLessons, getCourseById, countEnrolledUsersInCourse, getProfessorByCourse} from '../service/course.service';
+import { getUserPurchasedCourses, getCoursesWithSectionsAndHours, filterAndSortCourses, getSectionsWithLessons, getCourseById, countEnrolledUsersInCourse, getProfessorByCourse} from '../service/course.service';
+import { hasUserPurchasedCourse  } from '../service/enrollment.service';
+import { Course } from '../entity/Course';
+import { AppDataSource } from '../repos/db';
+
+const courseRepository = AppDataSource.getRepository(Course);
 
 export const filterAndSort = asyncHandler(async (req: Request, res: Response) => {
       try {
@@ -35,20 +40,31 @@ export const filterAndSort = asyncHandler(async (req: Request, res: Response) =>
 
 export const courseShowGet = asyncHandler(async (req: Request, res: Response) => {
   try {
+    const userId = req.session!.user?.id;
+    const isLoggedIn = Boolean(userId); 
+
     const courses = await getCoursesWithSectionsAndHours();
+    const payments = isLoggedIn ? await getUserPurchasedCourses(userId) : [];
+    const purchasedCourseIds = payments.map(payment => payment.course_id);
+    const purchasedCourses = courses.filter(course => purchasedCourseIds.includes(course.id));
+
     res.render('course', {
       title: req.t('home.title'),
       message: req.t('home.message'),
       courses,
-      t: req.t, 
+      purchasedCourses,
+      isLoggedIn,
+      t: req.t,
     });
   } catch (error) {
     res.status(500).render('error', { message: req.t('course.course_error') });
   }
 });
 
+
 export const getCourseDetail = asyncHandler(async (req: Request, res: Response) => {
   const courseId = Number(req.params.id);
+  const userId = req.session!.user?.id;
 
   if (!courseId) {
     return res.status(400).render('error', { message: req.t('course.course_error_id_required') });
@@ -59,6 +75,7 @@ export const getCourseDetail = asyncHandler(async (req: Request, res: Response) 
     return res.status(404).render('error', { message: req.t('course.course_error_notfound') });
   }
 
+  const paidCourse = await hasUserPurchasedCourse(userId,courseId);
   const professor = await getProfessorByCourse(courseId);
   const sectionsWithLessons = await getSectionsWithLessons(courseId);
 
@@ -73,6 +90,7 @@ export const getCourseDetail = asyncHandler(async (req: Request, res: Response) 
     sectionsWithLessons,
     totalLessons,
     totalStudents,
-    t: req.t
+    paidCourse,
+    t: req.t,
   });
 });

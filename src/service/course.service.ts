@@ -4,6 +4,8 @@ import { Enrollment } from '../entity/Enrollment';
 import { Section } from '../entity/Section';
 import { Lesson } from '../entity/Lesson';
 import { User } from '../entity/User';
+import { Payment } from '../entity/Payment';
+import { In } from 'typeorm';
 
 
 const enrollmentRepository = AppDataSource.getRepository(Enrollment);
@@ -11,6 +13,8 @@ const courseRepository = AppDataSource.getRepository(Course);
 const sectionRepository = AppDataSource.getRepository(Section);
 const lessonRepository = AppDataSource.getRepository(Lesson);
 const userRepository = AppDataSource.getRepository(User);
+const paymentRepository = AppDataSource.getRepository(Payment);
+
 
 
 export async function getAllCourses() {
@@ -20,10 +24,37 @@ export async function getAllCourses() {
   });
 }
 
+export const getPaymentsByUserId = async (userId: number): Promise<Payment[]> => {
+  const paymentRepository = AppDataSource.getRepository(Payment);
+  
+  return await paymentRepository.find({
+    where: { id: userId },
+  });
+};
+
+export const getCoursesByIds = async (courseIds: number[]): Promise<Course[]> => {
+  const courseRepository = AppDataSource.getRepository(Course);
+
+  return await courseRepository.findBy({
+    id: In(courseIds), 
+  });
+};
+
+export async function getUserPurchasedCourses(userId: number): Promise<Payment[]> {
+  const payments = await paymentRepository.find({
+    where: {
+      user_id: userId,
+      status: 'done', 
+    },
+  });
+
+  return payments; 
+}
+
 export async function getProfessorByCourse(courseId: number) {
   const course = await courseRepository.findOne({
     where: { id: courseId },
-    relations: {professor: true}
+    relations: { professor: true },
   });
 
   return course?.professor;
@@ -44,8 +75,14 @@ export const getCoursesWithSectionsAndHours = async () => {
         0
       );
 
+      const professor = await getProfessorByCourse(course.id);
+      const professorName = professor?.name || 'Unknown'; 
+      const professorId = professor?.id || 'Unknown';
+
       return {
         ...course,
+        professorName,
+        professorId,
         sectionsWithLessons,
         totalHours,
       };
@@ -84,6 +121,46 @@ export async function countEnrolledUsersInCourse(courseId: number): Promise<numb
   });
 
   return count;
+}
+
+export async function createCourse(data: Partial<Course>): Promise<Course> {
+  const newCourse = courseRepository.create({
+      name: data.name,
+      description: data.description,
+      price: data.price, 
+      average_rating: data.average_rating, 
+      professor_id: data.professor_id 
+  });
+
+  return await courseRepository.save(newCourse);
+}
+
+export const updateCourse = async (id: number, courseData: any) => {
+  const course = await courseRepository.findOne({ where: { id }, relations: ['professor', 'sections'] });
+
+  if (!course) {
+    throw new Error(`Course with ID ${id} not found.`);
+  }
+
+  course.name = courseData.name;
+
+  const professor = await getProfessorByCourse(courseData.professor_id);
+  if (professor) {
+    course.professor = professor; 
+    course.professor_id = professor.id; 
+  }
+
+  course.description = courseData.description; 
+  course.price = courseData.price; 
+  course.average_rating = courseData.average_rating; 
+
+  return await courseRepository.save(course);
+};
+
+
+export async function deleteCourse(id: number): Promise<boolean> {
+  const result = await courseRepository.delete(id);
+  return result.affected !== 0;
 }
 
 interface courseFilter {
