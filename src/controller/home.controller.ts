@@ -1,16 +1,27 @@
 ﻿import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import { getCoursesWithSectionsAndHours } from "../service/course.service";
+import { getCoursesWithSectionsAndHours, getUserPurchasedCourses } from "../service/course.service";
 
 export const renderHomePage = asyncHandler(
   async (req: Request, res: Response) => {
     try {
+      const userId = req.session!.user?.id;
+      const isLoggedIn = Boolean(userId); 
+  
       const courses = await getCoursesWithSectionsAndHours();
+  
+      const payments = isLoggedIn ? await getUserPurchasedCourses(userId) : [];
+      
+      const purchasedCourseIds = payments.map(payment => payment.course_id);
+      
+      const purchasedCourses = courses.filter(course => purchasedCourseIds.includes(course.id));
       res.render("index", {
         title: { message: req.t("home.title") },
         message: { message: req.t("home.message") },
         courses,
         t: req.t,
+        purchasedCourses,
+        isLoggedIn
       });
     } catch (error) {
       res

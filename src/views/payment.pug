@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  include partial/navbar
+  include partial/header
+
+  <!-- Payment Start -->
+  .container-xxl.py-2.mt-4
+    .container
+      .row.g-4.wow.fadeInUp(data-wow-delay='0.5s ')
+        center 
+          img#paymentSuccess(src="img/payment-success.png" alt="" class='icon' style='opacity: 1; display: none')
+          .payment-container 
+            table.payment-table
+              tbody
+                tr
+                  td.label #{t('payment.username')}
+                  td.value #{username}
+                tr
+                  td.label #{t('payment.course')}
+                  td.value #{courseId}
+                tr
+                  td.label #{t('payment.payment-date')}
+                  td.value #{paymentDate}
+                tr
+                  td.label #{t('payment.status')}
+                  td.value #{status}
+                tr
+                  td.label.amount #{t('payment.amount')}
+                  td.amount $ #{amount.toFixed(2)}
+              form(action=`/payments/${courseId}`, method='post')
+                input(type='hidden', name='courseId', value=courseId) 
+                button#paymentSubmit.btn.text-light.w-100.py-3.payment-submit(type='submit') #{t('payment.submit')}
+  <!-- Payment End -->

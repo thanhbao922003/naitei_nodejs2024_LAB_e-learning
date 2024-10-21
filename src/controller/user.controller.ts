@@ -6,7 +6,6 @@ import {
   decodeJwtToken,
 } from "../service/user.service";
 
-// Register a new user
 export const register = asyncHandler(async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
   try {
@@ -21,11 +20,17 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-// Login an user
 export const login = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
     const { token, user } = await userLogin(email, password);
+    console.log(user);
+
+    if (req.session) {
+      req.session.accessToken = token;
+      req.session.user = user;
+    }
+
     res.status(200).json({
       status: 200,
       message: req.t("login.login-success"),

@@ -49,7 +49,8 @@
     "Subscribe": "Đăng ký",
     "Copy-right": "Đã đăng ký.",
     "PAID": "Đã thanh toán",
-    "FREE": "Miễn phí"
+    "FREE": "Miễn phí",
+    "Buy": "Mua"
   },
   "login": {
     "email": "Email",
@@ -98,6 +99,76 @@
     "enrolled": "Đã đăng ký",
     "certificate": "Chứng chỉ",
     "yes": "Có",
-    "share": "Chia sẻ khóa học này"
+    "share": "Chia sẻ khóa học này",
+    "progress": "Tiến độ",
+    "progress_error": "Lỗi cập nhật tiến độ",
+    "userid_courseid_required": "Yêu cầu UserID và CourseID",
+    "purchase_course_error": "Bạn chưa mua khóa học này",
+    "enrollment_error": "Không tìm thấy khóa học"
+  },
+  "payment": {
+    "amount": "Giá",
+    "payment-date": "Ngày thanh toán",
+    "username": "Tên người dùng",
+    "course": "Khóa học",
+    "submit": "Thanh toán",
+    "status": "Trạng thái",
+    "success": "Thanh toán thành công",
+    "failure": "Thanh toán thất bại"
+  },
+  "user": {
+    "email": "Email",
+    "username": "Tên người dùng",
+    "password": "Mật khẩu",
+    "role": "Vai trò"
+  },
+  "admin": {
+    "user": "Người dùng",
+    "course": "Khóa học",
+    "section": "Chương",
+    "lesson": "Bài học",
+    "review": "Đánh giá",
+    "comment": "Bình luận",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "create": "Tạo mới",
+    "confirm-delete": "Xác nhận xóa",
+    "confirm-message-user": "Bạn có chắc chắn muốn xóa người dùng này không?",
+    "confirm-delete-course": "Bạn có chắc chắn muốn xóa khóa học này không?",
+    "confirm-delete-section": "Bạn có chắc chắn muốn xóa chương này không?"
+  },
+  "admin-user": {
+    "management": "Quản lý người dùng",
+    "#": "#",
+    "ID": "ID",
+    "name": "Tên người dùng",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "role": "Vai trò",
+    "user": "Người dùng",
+    "admin": "Quản lý",
+    "professor": "Giáo sư"
+  },
+  "admin-course": {
+    "management": "Quản lý khóa học",
+    "#": "#",
+    "ID": "ID",
+    "name": "Tên khóa học",
+    "description": "Mô tả",
+    "section": "Chương",
+    "professor": "Giáo sư",
+    "price": "Giá",
+    "rating": "Đánh giá"
+  },
+  "admin-section": {
+    "management": "Quản lý chương",
+    "#": "#",
+    "ID": "ID",
+    "name": "Tên chương",
+    "course": "Tên khóa học",
+    "total-time": "Tổng thời gian",
+    "total-lesson": "Tổng bài học"
   }
 }

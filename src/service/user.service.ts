@@ -64,3 +64,11 @@ export const userLogin = async (email: string, password: string) => {
 export const decodeJwtToken = (token: string) => {
   return Jwt.verify(token, process.env.JWT_SECRET!);
 };
+
+export async function getAllUser() {
+  return await userRepository.find({ 
+    select : ['id', 'name', 'email', 'password', 'role'],
+    order: {name: 'ASC'},
+   }); // Sử dụng repository để tìm user
+};
+
