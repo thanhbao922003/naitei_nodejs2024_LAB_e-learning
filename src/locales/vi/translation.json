@@ -129,6 +129,7 @@
     "lesson": "Bài học",
     "review": "Đánh giá",
     "comment": "Bình luận",
+    "payment": "Thanh Toán",
     "edit": "Sửa",
     "delete": "Xóa",
     "save": "Lưu",
@@ -149,7 +150,12 @@
     "role": "Vai trò",
     "user": "Người dùng",
     "admin": "Quản lý",
-    "professor": "Giáo sư"
+    "professor": "Giáo sư",
+    "phone_number": "Số điện thoại",
+    "date_of_birth": "Ngày sinh",
+    "gender": "Giới tính",
+    "identity_card": "CMND/CCCD",
+    "additional_info": "Thông tin thêm"
   },
   "admin-course": {
     "management": "Quản lý khóa học",
@@ -170,5 +176,26 @@
     "course": "Tên khóa học",
     "total-time": "Tổng thời gian",
     "total-lesson": "Tổng bài học"
+  },
+  "admin-lesson": {
+    "management": "Quản lý bài học",
+    "#": "#",
+    "ID": "ID",
+    "name": "Tên bài học",
+    "section": "Tên phần",
+    "type": "Tổng thời gian",
+    "content": "Nội dung",
+    "description": "Mô tả",
+    "time": "Thời gian"
+  },
+  "admin-payment": {
+    "management": "Quản lý thanh toán",
+    "#": "#",
+    "ID": "ID",
+    "user": "Tên người dùng",
+    "course": "Tên khóa học",
+    "amount": "Số tiền",
+    "status": "Trạng thái",
+    "payment-date": "Ngày thanh toán"
   }
 }

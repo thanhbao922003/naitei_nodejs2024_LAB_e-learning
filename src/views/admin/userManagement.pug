@@ -17,22 +17,30 @@ block content
                   th #{t('admin-user.ID')}
                   th #{t('admin-user.name')}
                   th #{t('admin-user.email')}
-                  th #{t('admin-user.password')}
-                  th #{t('admin-user.role')}
+                  th #{t('admin-user.phone_number')}
+                  th #{t('admin-user.date_of_birth')}
+                  th #{t('admin-user.gender')}
+                  th #{t('admin-user.address')}
+                  th #{t('admin-user.identity_card')}
+                  th #{t('admin-user.additional_info')}
                   th #{t('admin.edit')}
                   th #{t('admin.delete')}
               tbody
                 each user, index in users
-                  tr(id=`courseRow-${user.id}`)
+                  tr(id=`userRow-${user.id}`)
                     td #{index + 1}
                     td #{user.id}
                     td #{user.name}
                     td #{user.email}
-                    td #{user.password}
-                    td #{user.role}
+                    td #{user.phone_number}
+                    td #{user.date_of_birth} 
+                    td #{user.gender}
+                    td #{user.address}
+                    td #{user.identity_card}
+                    td #{user.additional_info || 'N/A'} 
                     td 
                       .edit-btn
-                        button(onclick=`showEditForm('${user.id}', '${user.name}', '${user.email}', '${user.password}', '${user.role}')`) #{t('admin.edit')}
+                        button(onclick=`showEditForm('${user.id}', '${user.name}', '${user.email}', '${user.phone_number}', '${user.date_of_birth}', '${user.gender}', '${user.address}', '${user.identity_card}', '${user.additional_info}')`) #{t('admin.edit')}
                     td 
                       .delete-btn
                         button(onclick=`showDeleteForm(${user.id})`) #{t('admin.delete')}

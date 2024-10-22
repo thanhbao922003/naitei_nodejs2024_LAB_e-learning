@@ -9,40 +9,47 @@ export const userRegister = async (
   name: string,
   email: string,
   password: string,
-  role: string
+  role: string,
+  phone_number: number,
+  avatar: string,
+  date_of_birth: Date,
+  gender: string,
+  address: string,
+  identity_card: string,
+  additional_info: string
 ) => {
-  // Check exist
   const existingUser = await userRepository.findOne({
-    where: { email },
+    where: [{ email }, { name }],
   });
   if (existingUser) {
-    throw new Error("User already exists");
+    throw new Error("User already exists with this email or username");
   }
 
-  // Hash password
   const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
 
-  // create new user and save
   const user = userRepository.create({
     name,
     email,
     password: hashedPassword,
     role,
+    phone_number,
+    avatar,
+    date_of_birth,
+    gender,
+    address,
+    identity_card,
+    additional_info
   });
 
   return await userRepository.save(user);
 };
 
 export const userLogin = async (email: string, password: string) => {
-  // find user by email
-  const user = await userRepository.findOne({
-    where: { email },
-  });
+  const user = await userRepository.findOne({ where: { email } });
   if (!user) {
     throw new Error("Invalid email or password");
   }
 
-  // compare the password
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
     throw new Error("Invalid email or password");
@@ -67,8 +74,8 @@ export const decodeJwtToken = (token: string) => {
 
 export async function getAllUser() {
   return await userRepository.find({ 
-    select : ['id', 'name', 'email', 'password', 'role'],
+    select : ['id','additional_info','address', 'date_of_birth','phone_number', 'gender', 'name', 'email', 'password', 'role'],
     order: {name: 'ASC'},
-   }); // Sử dụng repository để tìm user
+   }); 
 };
 

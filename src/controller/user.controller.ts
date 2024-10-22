@@ -7,16 +7,16 @@ import {
 } from "../service/user.service";
 
 export const register = asyncHandler(async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role, phone_number, avatar, date_of_birth, gender, address, identity_card, additional_info } = req.body;
   try {
-    const user = await userRegister(name, email, password, "user");
-    res
-      .status(201)
-      .json({ status: 201, message: req.t("signup.signup-success"), user });
+    const user = await userRegister(name, email, password, role, phone_number, avatar, date_of_birth, gender, address, identity_card, additional_info);
+    res.status(201).json({ status: 201, message: req.t("signup.signup-success"), user });
   } catch (error) {
-    res
-      .status(400)
-      .json({ status: 400, message: req.t("signup.signup-failure") });
+    if (error.message === "User already exists with this email or username") {
+      res.status(400).json({ status: 400, message: error.message });
+    } else {
+      res.status(400).json({ status: 400, message: req.t("signup.signup-failure") });
+    }
   }
 });
 
@@ -24,7 +24,6 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
     const { token, user } = await userLogin(email, password);
-    console.log(user);
 
     if (req.session) {
       req.session.accessToken = token;
@@ -38,9 +37,7 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
       user,
     });
   } catch (error) {
-    res
-      .status(400)
-      .json({ status: 400, message: req.t("login.login-failure") });
+    res.status(400).json({ status: 400, message: req.t("login.login-failure") });
   }
 });
 
@@ -57,4 +54,26 @@ export const verifyUser = asyncHandler((req: Request, res: Response) => {
     res
       .status(401)
       .json({ status: 401, message: req.t("login.not-authentication") });
+});
+
+export const logout = asyncHandler(async (req: Request, res: Response) => {
+  try {
+    if (req.session) {
+      req.session.destroy((err) => {
+        if (err) {
+          return res
+            .status(500)
+            .json({ status: 500, message: req.t("logout.failure") });
+        }
+        res.clearCookie("connect.sid"); 
+        return res.redirect("/");
+      });
+    } else {
+      res
+        .status(400)
+        .json({ status: 400, message: req.t("logout.no-session") });
+    }
+  } catch (error) {
+    res.status(500).json({ status: 500, message: req.t("logout.failure") });
+  }
 });

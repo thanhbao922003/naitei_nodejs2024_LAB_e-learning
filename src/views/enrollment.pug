@@ -75,10 +75,9 @@ block content
                                       i.fa.fa-video.text-danger
                                         | #{lesson.name} - #{lesson.time} #{t('course.hours')} 
                                         br 
-                                        | - #{lesson.type}: #{lesson.content}
+                                        | - #{lesson.type}: #{lesson.content} #{lesson.progress !== undefined ? lesson.progress : 0}%
                                         br  
-                                      span.ms-3 Progress: #{lesson.progress}%
-                                       form(method='POST', action=`/enrollments/${enrollment.course_id}/${lesson.id}`)
+                                      form(method='POST', action=`/enrollments/${enrollment.course_id}/${lesson.id}`)
                                         input(type='hidden', name='lessonId', value=lesson.id)
                                         button.btn.btn-primary(type='submit') Mark as done
                               else

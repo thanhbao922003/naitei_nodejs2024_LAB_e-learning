@@ -8,7 +8,6 @@ import { hasUserPurchasedCourse } from '../service/enrollment.service';
 export const processPayment = asyncHandler(async (req: Request, res: Response) => {
     const userId = req.session!.user?.id; 
     const { courseId } = req.params; 
-    console.log(courseId);
     if (!userId || isNaN(Number(courseId))) {
       return res.status(400).render('error', { message: req.t('payment.error_invalid_data') });
     }
@@ -57,7 +56,6 @@ export const processPayment = asyncHandler(async (req: Request, res: Response) =
     const { courseId } = req.params; 
     const userId = req.session!.user?.id; 
   
-    console.log(`Received courseId: ${courseId}`); // Log courseId để kiểm tra
   
     if (!userId || isNaN(Number(courseId))) {
       return res.status(400).render('error', { message: req.t('payment.error_invalid_data') });
@@ -70,10 +68,9 @@ export const processPayment = asyncHandler(async (req: Request, res: Response) =
         return res.status(404).render('error', { message: req.t('payment.error_payment_not_found') });
       }
   
-      console.log(`Payment updated to done for userId: ${userId}, courseId: ${courseId}`);
-      return res.redirect('/'); // Chuyển hướng về trang chính
+      return res.redirect('/'); 
     } catch (error) {
-      console.error(`Error during payment update: ${error.message}`); // Log lỗi
+      console.error(`Error during payment update: ${error.message}`); 
       return res.status(500).render('error', { message: error.message });
     }
   });

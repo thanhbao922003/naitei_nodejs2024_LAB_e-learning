@@ -13,21 +13,21 @@ block content
         a.nav-item.nav-link(href='/courses') #{t('home.course')}
         a.nav-item.nav-link(href='' id='userDropdown')
           i.fa.fa-user
-        ul.dropdown-menu-nav-notLoggedIn
+        ul.dropdown-menu-nav-notLoggedIn(class= isLoggedIn ? '' : 'active')
           li
             a(href='/login') #{t('home.login')}
           li
             a(href='/signup') #{t('home.signup')}
-        ul.dropdown-menu-nav-loggedIn
+
+        ul.dropdown-menu-nav-loggedIn(class= isLoggedIn ? 'active' : '')
           li
             a(href='/account') #{t('home.account')}
           li
-            a#logout(href='/login') #{t('home.logout')}
-
-      .nav-item.nav-link
-        a.item-lang(href='/?lang=en' data-lang='en') En
-        span   |  
-        a.item-lang(href='/?lang=vi' data-lang='vi') Vi
+            a#logout(href='/logout') #{t('home.logout')}
+        .nav-item.nav-link
+          a.item-lang(href='/?lang=en' data-lang='en') En
+          span   |  
+          a.item-lang(href='/?lang=vi' data-lang='vi') Vi
   <!-- Navbar End -->
 
   script.
@@ -35,24 +35,20 @@ block content
       $("#userDropdown").on("click", function (e) {
         e.preventDefault();
         const token = { token: sessionStorage.getItem("accessToken") };
-        // Kiểm tra nếu token có trong session storage
         if (token.token) {
           $.ajax({
             url: "/verify",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify(token),
-            // Kiểm tra token có hợp lệ không, nếu giải mã được thì toggle loggedIn
             success: function (response) {
               $(".dropdown-menu-nav-loggedIn").toggleClass("active");
             },
-            // Nếu token không hợp lệ thì báo lỗi, toggle not logged in
             error: function (error) {
               $(".dropdown-menu-nav-notLoggedIn").toggleClass("active");
             },
           });
         }
-        // nếu token không có trong sessionStorage
         else {
           $(".dropdown-menu-nav-notLoggedIn").toggleClass("active");
         }
@@ -60,9 +56,6 @@ block content
 
       $("#logout").on("click", function (e) {
         e.preventDefault();
-        sessionStorage.removeItem("accessToken");
-        sessionStorage.removeItem("user.id");
-        sessionStorage.removeItem("user.name");
-        window.location.href = "/login";
+        window.location.href = "/logout"; 
       });
     });

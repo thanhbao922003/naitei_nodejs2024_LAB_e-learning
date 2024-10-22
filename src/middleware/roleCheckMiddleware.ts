@@ -6,4 +6,5 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
     } else {
       res.status(403).json({ message: 'Access forbidden: Admins only' });
     }
-  };
+};
+

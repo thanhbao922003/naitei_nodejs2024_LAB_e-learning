@@ -1,4 +1,5 @@
-﻿
+﻿extends layout
+
 block content
   include partial/navbar
   include partial/header
@@ -41,11 +42,6 @@ block content
                   a(href='#') #{t('login.forgot-password')}
               .col-12
                 button.btn.text-light.w-100.py-3(type='submit') #{t('home.login')}
-                script.sessionStorage.setItem('myKey', ${token})
-              .col-12.text-center
-                p
-                  | #{t('login.signup')}
-                  a.text-decoration-none(href='/signup') #{t('home.signup')}
   <!-- Login End -->
 
   script.
@@ -85,6 +81,3 @@ block content
         }, 2000);
       }
     });
-  <!-- Toast end -->
-
-  include partial/footer

@@ -63,9 +63,10 @@ export async function getEnrollmentWithCourseAndUser(userId: number, courseId: n
         }
 
         enrollment = enrollmentRepository.create({
-            user,
-            course,
+            user_id: user.id, 
+            course_id: course.id, 
             enrollment_date: new Date(),
+            completion_date: null, 
             progress: 0,
         });
 
@@ -73,7 +74,6 @@ export async function getEnrollmentWithCourseAndUser(userId: number, courseId: n
     }
     return enrollment; 
 }
-
 
 export async function countEnrolledUsersInCourse(courseId: number): Promise<number> {
     return await enrollmentRepository.count({
@@ -140,14 +140,12 @@ export async function getLessons(courseId: number) {
     if (!enrollment) throw new Error(`Enrollment with ID ${enrollmentId} not found`);
 
     const lessons = enrollment.course.sections.flatMap(section => section.lessons);
-    // Tính tổng số lessons
     const totalLessons = lessons.length;
 
-    // Tính số lessons đã hoàn thành
     const completedLessons = lessons.filter(lesson => lesson.progress === 100).length;
-
-    // Cập nhật tiến độ của enrollment
     enrollment.progress = (totalLessons > 0) ? (completedLessons / totalLessons) * 100 : 0;
+
+    enrollment.completion_date = enrollment.progress === 100 ? new Date() : null;
 
     await enrollmentRepository.save(enrollment);
 }

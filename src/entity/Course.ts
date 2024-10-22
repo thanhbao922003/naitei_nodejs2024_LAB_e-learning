@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { User } from './User';
 import { Section } from './Section';
+import { Category } from './Category'; 
 
 @Entity('courses')
 export class Course {
@@ -19,6 +20,10 @@ export class Course {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'professor_id' })
   professor!: User;
+
+  @ManyToOne(() => Category, (category) => category.courses)
+  @JoinColumn({ name: 'category_id' }) 
+  category!: Category;
 
   @OneToMany(() => Section, (section) => section.course)
   sections!: Section[];
@@ -38,6 +43,9 @@ export class Course {
   @Column({ type: 'bigint' })
   professor_id!: number;
 
+  @Column({ type: 'bigint' })
+  category_id!: number;
+
   @CreateDateColumn({ type: 'datetime' })
   created_at!: Date;
 
@@ -48,4 +56,3 @@ export class Course {
     courseData && Object.assign(this, courseData);
   }
 }
-

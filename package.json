@@ -13,7 +13,7 @@
     "add:migration": "npm run typeorm -- -d ./src/repos/db.ts migration:generate ./src/migration/$npm_config_name",
     "revert:migration": "npm run typeorm migration:revert -- -d ./src/repos/db.ts",
     "apply:migration": "npm run typeorm migration:run -- -d ./src/repos/db.ts",
-    "typeorm": "ts-node --transpile-only -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -45,7 +45,8 @@
     "mysql2": "^3.11.3",
     "pug": "^3.0.3",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "typeorm-seeding": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",
