@@ -3,6 +3,7 @@
 block content
   include partial/navbar
   include partial/header
+
   <!-- Toast start -->
   #toastNoAutohideSuccess.toast(role='alert' aria-live='assertive' aria-atomic='true' data-bs-delay="2000" style='opacity: 1; display: none')
     .toast-header.text-success
@@ -30,16 +31,43 @@ block content
             .row.g-3
               .col-12
                 .form-floating
-                  input#username.form-control(type='text' placeholder='Username' name='name')
-                  label(for='Username') #{t('signup.username')}
+                  input#username.form-control(type='text' placeholder='Username' name='name' required)
+                  label(for='username') #{t('signup.username')}
               .col-12
                 .form-floating
-                  input#email.form-control(type='email' placeholder='Email Address' name='email')
+                  input#email.form-control(type='email' placeholder='Email Address' name='email' required)
                   label(for='email') #{t('signup.email')}
               .col-12
                 .form-floating
-                  input#password.form-control(type='password' placeholder='Password' name='password')
+                  input#phone_number.form-control(type='tel' placeholder='Phone Number' name='phone_number' required)
+                  label(for='phone_number') #{t('signup.phone-number')}
+              .col-12
+                .form-floating
+                  input#date_of_birth.form-control(type='date' name='date_of_birth')
+                  label(for='date_of_birth') #{t('signup.date-of-birth')}
+              .col-12
+                .form-floating
+                  select#gender.form-select(name='gender')
+                    option(value='male') #{t('signup.male')}
+                    option(value='female') #{t('signup.female')}
+                    option(value='other') #{t('signup.other')}
+                  label(for='gender') #{t('signup.gender')}
+              .col-12
+                .form-floating
+                  input#address.form-control(type='text' placeholder='Address' name='address')
+                  label(for='address') #{t('signup.address')}
+              .col-12
+                .form-floating
+                  input#password.form-control(type='password' placeholder='Password' name='password' required)
                   label(for='password') #{t('signup.password')}
+              .col-12
+                .form-floating
+                  input#identity_card.form-control(type='text' placeholder='Identity Card' name='identity_card')
+                  label(for='identity_card') #{t('signup.identity-card')}
+              .col-12
+                .form-floating
+                  textarea#additional_info.form-control(placeholder='Additional Info' name='additional_info')
+                  label(for='additional_info') #{t('signup.additional-info')}
               .col-12
                 button.btn.text-light.w-100.py-3(type='submit') #{t('home.signup')}
               .col-12.text-center
@@ -48,37 +76,42 @@ block content
                   a.text-decoration-none(href='/login') #{t('home.login')}
   <!-- Signup End -->
 
-    script.
-      document.querySelector("#registerForm").addEventListener("submit", async function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-        const data = {
-          name: formData.get("name"),
-          email: formData.get("email"),
-          password: formData.get("password"),
-        };
-        try {
-          const response = await $.ajax({
-            url: "/register",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(data),
-          });
-          if (response.status === 201) {
-            const toastElement = document.getElementById("toastNoAutohideSuccess");
-            toastElement.style.removeProperty("display");
-            setTimeout(() => {
-              window.location.href = "/login";
-            }, 2000);
-          } 
-        } catch (error) {
-          const toastElement = document.getElementById("toastNoAutohideError");
+  script.
+    document.querySelector("#registerForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+      const data = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        password: formData.get("password"),
+        phone_number: formData.get("phone_number"),
+        date_of_birth: formData.get("date_of_birth"),
+        gender: formData.get("gender"),
+        address: formData.get("address"),
+        identity_card: formData.get("identity_card"),
+        additional_info: formData.get("additional_info"),
+      };
+      
+      try {
+        const response = await $.ajax({
+          url: "/register",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(data),
+        });
+        
+        if (response.status === 201) {
+          const toastElement = document.getElementById("toastNoAutohideSuccess");
           toastElement.style.removeProperty("display");
           setTimeout(() => {
-            toastElement.style.display = "none";
+            window.location.href = "/login";
           }, 2000);
-        }
-      });
-  <!-- Toast end -->
-
-  include partial/footer
+        } 
+      } catch (error) {
+        const toastElement = document.getElementById("toastNoAutohideError");
+        toastElement.style.removeProperty("display");
+        setTimeout(() => {
+          toastElement.style.display = "none";
+        }, 2000);
+      }
+    });

@@ -16,4 +16,6 @@ router.get("/login", (req, res) => {
 router.post("/login", userController.login);
 router.post("/verify", userController.verifyUser);
 
+router.get("/logout", userController.logout);
+
 export default router;

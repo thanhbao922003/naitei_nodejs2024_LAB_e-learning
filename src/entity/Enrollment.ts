@@ -23,13 +23,13 @@ export class Enrollment {
       course!: Course;
 
     @Column({ type: 'datetime' })
-      enrollment_date!: Date;
+      enrollment_date!: Date | null;
 
     @Column('integer')
       progress!: number;
 
-    @Column({ type: 'datetime' })
-      completion_date!: Date;
+    @Column({ type: 'datetime', nullable: true })
+    completion_date!: Date | null;
 
     @Column({ type: 'bigint' })
       user_id!: number;

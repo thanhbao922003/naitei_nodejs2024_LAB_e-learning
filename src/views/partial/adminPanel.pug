@@ -16,8 +16,22 @@ block content
         a.nav-item.nav-link(href="/admins/payments") #{t('admin.payment')}
         a.nav-item.nav-link(href="/admins/reviews") #{t('admin.review')}
         a.nav-item.nav-link(href="/admins/comments") #{t('admin.comment')}
-      .nav-item.nav-link
-        a.item-lang(href='/?lang=en' data-lang='en') En
-        span   |  
-        a.item-lang(href='/?lang=vi' data-lang='vi') Vi
+        a.nav-item.nav-link(href='' id='userDropdown')
+          i.fa.fa-user
+        ul.dropdown-menu-nav-notLoggedIn(class= isLoggedIn ? '' : 'active')
+          li
+            a(href='/login') #{t('home.login')}
+          li
+            a(href='/signup') #{t('home.signup')}
+
+        ul.dropdown-menu-nav-loggedIn(class= isLoggedIn ? 'active' : '')
+          li
+            a(href='/account') #{t('home.account')}
+          li
+            a#logout(href='/logout') #{t('home.logout')}
+        .nav-item.nav-link
+          a.item-lang(href='/?lang=en' data-lang='en') En
+          span   |  
+          a.item-lang(href='/?lang=vi' data-lang='vi') Vi
   <!-- Admin Panel End -->
+  script(src='/views/partial/navbar.pug')

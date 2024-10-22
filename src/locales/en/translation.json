@@ -129,6 +129,7 @@
     "lesson": "Lessons",
     "review": "Reviews",
     "comment": "Comments",
+    "payment": "Payments",
     "edit": "Edit",
     "delete": "Delete",
     "save": "Save",
@@ -149,7 +150,12 @@
     "role": "Role",
     "user": "User",
     "admin": "Admin",
-    "professor": "Professor"
+    "professor": "Professor",
+    "phone_number": "Phone Number",
+    "date_of_birth": "Birth",
+    "gender": "Gender",
+    "identity_card": "Identity",
+    "additional_info": "Info"
   },
   "admin-course": {
     "management": "Course management",
@@ -170,5 +176,26 @@
     "course": "Course name",
     "total-time": "Total time",
     "total-lesson": "Total lesson"
+  },
+  "admin-lesson": {
+    "management": "Lesson management",
+    "#": "#",
+    "ID": "ID",
+    "name": "Lesson name",
+    "section": "Section name",
+    "type": "Total time",
+    "content": "Content",
+    "description": "Description",
+    "time": "Time"
+  },
+  "admin-payment": {
+    "management": "Payment management",
+    "#": "#",
+    "ID": "ID",
+    "user": "Lesson name",
+    "course": "Section name",
+    "amount": "Total time",
+    "status": "Content",
+    "payment-date": "Description"
   }
 }
