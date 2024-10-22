@@ -163,7 +163,7 @@ export async function deleteCourse(id: number): Promise<boolean> {
   return result.affected !== 0;
 }
 
-interface courseFilter {
+export interface CourseFilter {
   professorId?: number;
   minPrice?: number;
   maxPrice?: number;
@@ -171,51 +171,75 @@ interface courseFilter {
   name?: string;
 }
 
-interface courseSorting {
-  sortBy?: 'price' | 'average_rating' | 'created_at';
+export interface CourseSorting {
+  sortBy?: 'name' | 'price' | 'average_rating' | 'created_at';
   order?: 'ASC' | 'DESC';
 }
 
-export async function filterAndSortCourses(
-  filters: courseFilter,
-  sorting: courseSorting
-) {
+export const filterAndSortCourses = async (
+  filters: CourseFilter,
+  sorting: CourseSorting,
+  page: number = 1,
+  limit: number = 10
+) => {
   const query = courseRepository.createQueryBuilder('course');
 
-  // Apply filter
-  if (filters.professorId) {
-    query.andWhere('course.professor_id = :professorId', {
-      professorId: filters.professorId,
-    });
-  }
+    // Apply filters
+    if (filters.professorId) {
+      query.andWhere('course.professor_id = :professorId', { professorId: filters.professorId });
+    }
+    if (filters.minPrice) {
+      query.andWhere('course.price >= :minPrice', { minPrice: filters.minPrice });
+    }
+    if (filters.maxPrice) {
+      query.andWhere('course.price <= :maxPrice', { maxPrice: filters.maxPrice });
+    }
+    if (filters.minRating) {
+      query.andWhere('course.average_rating >= :minRating', { minRating: filters.minRating });
+    }
+    if (filters.name) {
+      query.andWhere('course.name LIKE :name', { name: `%${filters.name}%` });
+    }
+  
+    // Apply sorting
+    if (sorting.sortBy) {
+      query.orderBy(`course.${sorting.sortBy}`, sorting.order || 'ASC');
+    }
+  
+    // Apply pagination (offset and limit)
+    const offset = (page - 1) * limit;
+    query.skip(offset).take(limit);
+  
+    // Execute the query and get results
+    const [courses, total] = await query.getManyAndCount();
 
-  if (filters.minPrice) {
-    query.andWhere('course.price >= :minPrice', {
-      minPrice: filters.minPrice,
-    });
-  }
+    courses.map(async (course) => {
+      const sectionsWithLessons = await getSectionsWithLessons(course.id);
+      const totalHours = sectionsWithLessons.reduce(
+        (sum, section) => sum + section.total_time,
+        0
+      );
 
-  if (filters.maxPrice) {
-    query.andWhere('course.price <= :maxPrice', { maxPrice: filters.maxPrice });
-  }
+      const professor = await getProfessorByCourse(course.id);
+      const professorName = professor?.name || 'Unknown'; 
+      const professorId = professor?.id || 'Unknown';
 
-  if (filters.minRating) {
-    query.andWhere('course.average_rating >= :minRating', { minRating: filters.minRating });
-  }
+      return {
+        ...course,
+        professorName,
+        professorId,
+        sectionsWithLessons,
+        totalHours,
+      };
+    })
 
-  if (filters.name) {
-    query.andWhere('course.name LIKE :name', { name: `%${filters.name}%` });
-  }
-
-  // Apply sorting
-  if (sorting.sortBy) {
-    query.orderBy(`course.${sorting.sortBy}`, sorting.order || 'ASC');
-  } else {
-    // Default sorting by creation date
-    query.orderBy('course.created_at', 'DESC');
-  }
-
-  return await query.getMany();
+  // Return paginated result along with total count
+  return {
+    courses,
+    total,
+    page,
+    pageCount: Math.ceil(total / limit),
+  };
 }
 
 export async function getCourseById(id: number) {

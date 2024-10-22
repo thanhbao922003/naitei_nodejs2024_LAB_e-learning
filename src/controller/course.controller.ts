@@ -2,48 +2,35 @@ import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { getUserPurchasedCourses, getCoursesWithSectionsAndHours, filterAndSortCourses, getSectionsWithLessons, getCourseById, countEnrolledUsersInCourse, getProfessorByCourse} from '../service/course.service';
 import { hasUserPurchasedCourse  } from '../service/enrollment.service';
-import { Course } from '../entity/Course';
-import { AppDataSource } from '../repos/db';
-
-const courseRepository = AppDataSource.getRepository(Course);
-
-export const filterAndSort = asyncHandler(async (req: Request, res: Response) => {
-      try {
-        const { professorId, 
-          minPrice, 
-          maxPrice, 
-          minRating, 
-          name, 
-          sortBy, 
-          order, 
-        } = req.body;
-        const courses = await filterAndSortCourses(
-          {
-            professorId,
-            minPrice,
-            maxPrice,
-            minRating,
-            name,
-          },
-          {
-            sortBy,
-            order,
-          },
-        );
-        res.json(courses);
-      } catch (error) {
-        console.error('Error filtering and sorting courses:', error);
-        res.status(500).json({ message: 'Internal server error' });
-      }
-});
-
+import { CourseFilter, CourseSorting } from '../service/course.service';
+import { coursePagination } from '../constants';
 
 export const courseShowGet = asyncHandler(async (req: Request, res: Response) => {
   try {
     const userId = req.session!.user?.id;
     const isLoggedIn = Boolean(userId); 
 
-    const courses = await getCoursesWithSectionsAndHours();
+    // Extract filters, sorting, and pagination options from query parameters
+    const filters: CourseFilter = {
+      professorId: req.query.professorId ? Number(req.query.professorId) : undefined,
+      minPrice: req.query.minPrice ? Number(req.query.minPrice) : undefined,
+      maxPrice: req.query.maxPrice ? Number(req.query.maxPrice) : undefined,
+      minRating: req.query.minRating ? Number(req.query.minRating) : undefined,
+      name: req.query.courseName ? String(req.query.courseName) : undefined,
+    };
+
+    const sorting: CourseSorting = {
+      sortBy: req.query.sortBy === 'name' || req.query.sortBy === 'price' || req.query.sortBy === 'average_rating' || req.query.sortBy === 'created_at' 
+              ? req.query.sortBy as 'name' | 'price' | 'average_rating' | 'created_at' 
+              : undefined,
+      order: req.query.sortOrder === 'ASC' || req.query.sortOrder === 'DESC' ? req.query.sortOrder as 'ASC' | 'DESC' : undefined,
+    };
+
+    const page = req.query.page ? Number(req.query.page) : coursePagination.DEFAULT_PAGE; // Default to page 1
+    const limit = coursePagination.PAGE_LIMIT; // You can make this configurable if needed
+
+    const { courses, total, pageCount } = await filterAndSortCourses(filters, sorting, page, limit);
+    // let courses = await getCoursesWithSectionsAndHours();
     const payments = isLoggedIn ? await getUserPurchasedCourses(userId) : [];
     const purchasedCourseIds = payments.map(payment => payment.course_id);
     const purchasedCourses = courses.filter(course => purchasedCourseIds.includes(course.id));
@@ -54,6 +41,10 @@ export const courseShowGet = asyncHandler(async (req: Request, res: Response) =>
       courses,
       purchasedCourses,
       isLoggedIn,
+      filters: req.query,  // Pass the filters back to the view
+      total,
+      pageCount,
+      currentPage: page,
       t: req.t,
     });
   } catch (error) {
