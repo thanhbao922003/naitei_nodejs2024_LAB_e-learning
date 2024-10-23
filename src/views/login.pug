@@ -42,8 +42,12 @@ block content
                   a(href='#') #{t('login.forgot-password')}
               .col-12
                 button.btn.text-light.w-100.py-3(type='submit') #{t('home.login')}
+              p
+                | #{t('login.signup')}
+                a.text-decoration-none(href='/signup') #{t('home.signup')}
   <!-- Login End -->
 
+  include partial/footer
   script.
     document.querySelector("#loginForm").addEventListener("submit", async function(event) {
       event.preventDefault();

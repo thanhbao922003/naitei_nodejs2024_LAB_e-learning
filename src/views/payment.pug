@@ -29,6 +29,6 @@ block content
                   td.label.amount #{t('payment.amount')}
                   td.amount $ #{amount.toFixed(2)}
               form(action=`/payments/${courseId}`, method='post')
-                input(type='hidden', name='courseId', value=courseId) 
+                input(type='hidden' name='courseId', value=courseId) 
                 button#paymentSubmit.btn.text-light.w-100.py-3.payment-submit(type='submit') #{t('payment.submit')}
   <!-- Payment End -->

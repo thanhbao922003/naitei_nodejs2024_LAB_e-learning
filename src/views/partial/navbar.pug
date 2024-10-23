@@ -3,7 +3,7 @@
 block content
   <!-- Navbar Start -->
   nav.navbar.navbar-expand-lg.bg-white.navbar-light.shadow.sticky-top.p-0
-    a.navbar-brand.d-flex.align-items-center.px-4.px-lg-5(href='')
+    a.navbar-brand.d-flex.align-items-center.px-4.px-lg-5(href='/')
       img(src='img/icon.png' alt='' class='icon')
     button.navbar-toggler.me-4(type='button' data-bs-toggle='collapse' data-bs-target='#navbarCollapse')
       span.navbar-toggler-icon
@@ -13,49 +13,20 @@ block content
         a.nav-item.nav-link(href='/courses') #{t('home.course')}
         a.nav-item.nav-link(href='' id='userDropdown')
           i.fa.fa-user
-        ul.dropdown-menu-nav-notLoggedIn(class= isLoggedIn ? '' : 'active')
+        ul.dropdown-menu-nav-notLoggedIn
           li
             a(href='/login') #{t('home.login')}
           li
             a(href='/signup') #{t('home.signup')}
 
-        ul.dropdown-menu-nav-loggedIn(class= isLoggedIn ? 'active' : '')
+        ul.dropdown-menu-nav-loggedIn
           li
             a(href='/account') #{t('home.account')}
           li
             a#logout(href='/logout') #{t('home.logout')}
+
         .nav-item.nav-link
           a.item-lang(href='/?lang=en' data-lang='en') En
-          span   |  
+          span    |   
           a.item-lang(href='/?lang=vi' data-lang='vi') Vi
   <!-- Navbar End -->
-
-  script.
-    $(document).ready(function () {
-      $("#userDropdown").on("click", function (e) {
-        e.preventDefault();
-        const token = { token: sessionStorage.getItem("accessToken") };
-        if (token.token) {
-          $.ajax({
-            url: "/verify",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(token),
-            success: function (response) {
-              $(".dropdown-menu-nav-loggedIn").toggleClass("active");
-            },
-            error: function (error) {
-              $(".dropdown-menu-nav-notLoggedIn").toggleClass("active");
-            },
-          });
-        }
-        else {
-          $(".dropdown-menu-nav-notLoggedIn").toggleClass("active");
-        }
-      });
-
-      $("#logout").on("click", function (e) {
-        e.preventDefault();
-        window.location.href = "/logout"; 
-      });
-    });
