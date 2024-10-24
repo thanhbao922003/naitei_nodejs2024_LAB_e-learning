@@ -50,7 +50,25 @@
     "Copy-right": "Đã đăng ký.",
     "PAID": "Đã thanh toán",
     "FREE": "Miễn phí",
-    "Buy": "Mua"
+    "Buy": "Mua",
+    "Category-title": "Thể loại",
+    "Category-content": "Chủ đề phổ biến để khám phá",
+    "Professor": "Giảng viên",
+    "MinPrice": "Giá thấp nhất",
+    "MaxPrice": "Giá cao nhất",
+    "MinRating": "Đánh giá thấp nhất",
+    "SortBy": "Sắp xếp theo",
+    "SortByName": "Tên",
+    "SortByPrice": "Giá",
+    "SortByDate": "Ngày",
+    "SortByRating": "Đánh giá",
+    "SortOrder": "Thứ tự",
+    "SortAsc": "Tăng dần",
+    "SortDesc": "Giảm dần",
+    "ApplyFilters": "Áp dụng bộ lọc",
+    "Filters": "Bộ lọc",
+    "newest-course": "Khóa học mới nhất",
+    "mostEnrolledCourse": "khóa học được đăng ký nhiều nhất"
   },
   "login": {
     "email": "Email",
@@ -104,7 +122,15 @@
     "progress_error": "Lỗi cập nhật tiến độ",
     "userid_courseid_required": "Yêu cầu UserID và CourseID",
     "purchase_course_error": "Bạn chưa mua khóa học này",
-    "enrollment_error": "Không tìm thấy khóa học"
+    "enrollment_error": "Không tìm thấy khóa học",
+    "see-more": "Xem thêm",
+    "comments": "Bình luận",
+    "submit-cmt": "Gửi bình luận",
+    "reply": "Trả lời",
+    "submit-reply": "Gửi trả lời",
+    "select-star": "Vui lòng chọn xếp hạng sao!",
+    "fill-reply": "Vui lòng nhập trả lời.",
+    "note": "Lưu ý"
   },
   "payment": {
     "amount": "Giá",
@@ -127,6 +153,7 @@
     "course": "Khóa học",
     "section": "Chương",
     "lesson": "Bài học",
+    "payment": "Thanh toán",
     "review": "Đánh giá",
     "comment": "Bình luận",
     "payment": "Thanh Toán",
@@ -138,7 +165,11 @@
     "confirm-delete": "Xác nhận xóa",
     "confirm-message-user": "Bạn có chắc chắn muốn xóa người dùng này không?",
     "confirm-delete-course": "Bạn có chắc chắn muốn xóa khóa học này không?",
-    "confirm-delete-section": "Bạn có chắc chắn muốn xóa chương này không?"
+    "confirm-delete-section": "Bạn có chắc chắn muốn xóa chương này không?",
+    "confirm-delete-lesson": "Bạn có chắc chắn muốn xóa bài học này không?",
+    "confirm-delete-payment": "Bạn có chắc chắn muốn xóa thanh toán này không?",
+    "confirm-delete-review": "Bạn có chắc chắn muốn xóa đánh giá này không?",
+    "confirm-delete-comment": "Bạn có chắc chắn muốn xóa bình luận này không?"
   },
   "admin-user": {
     "management": "Quản lý người dùng",

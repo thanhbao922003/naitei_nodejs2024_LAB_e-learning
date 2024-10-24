@@ -76,6 +76,7 @@ block content
                   a.text-decoration-none(href='/login') #{t('home.login')}
   <!-- Signup End -->
 
+  include partial/footer
   script.
     document.querySelector("#registerForm").addEventListener("submit", async function(event) {
       event.preventDefault();
@@ -91,7 +92,7 @@ block content
         identity_card: formData.get("identity_card"),
         additional_info: formData.get("additional_info"),
       };
-      
+
       try {
         const response = await $.ajax({
           url: "/register",
@@ -99,7 +100,7 @@ block content
           contentType: "application/json",
           data: JSON.stringify(data),
         });
-        
+
         if (response.status === 201) {
           const toastElement = document.getElementById("toastNoAutohideSuccess");
           toastElement.style.removeProperty("display");

@@ -15,9 +15,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, 
+      secure: false,
       httpOnly: true,
-      maxAge: 1000 * 60 * 60, 
+      maxAge: 1000 * 60 * 60,
     },
   })
 );
@@ -35,5 +35,5 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(router);
-
+app.listen(process.env.PORT);
 export default app;

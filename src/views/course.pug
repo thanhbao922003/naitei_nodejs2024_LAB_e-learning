@@ -4,102 +4,133 @@ block content
   include partial/navbar
   include partial/header
 
-    //- Filter and Sort Form Start
-  .container-xxl.py-3
-    form(action='/courses', method='GET', class='row g-3')
-      .col-md-3
-        label(for='professorId') #{t('home.Professor')}
-        input.form-control(type='number', name='professorId', placeholder=t('home.Professor'), value=(filters.professorId || ''))
+  <!-- category start -->
+  .container-xxl.py-2.category
+    .text-center.wow.fadeInUp(data-wow-delay='0.1s')
+      h2.py-2 #{t('home.Category-title')}
+    .row.g-2.m-2
+      .col-lg-3.col-md-6.text-center
+        .content.shadow.p-3.mb-2.wow.fadeInUp(data-wow-delay='0.3s')
+          img.img-fluid(src='img/cat1.png' alt='categories')
+          h5.my-2
+            a.text-center(href='#') Microsoft Excel
+      .col-lg-3.col-md-6.text-center
+        .content.shadow.p-3.mb-2.wow.fadeInUp(data-wow-delay='0.3s')
+          img.img-fluid(src='img/cat2.png' alt='categories')
+          h5.my-2
+            a.text-center(href='#')  AWS
+      .col-lg-3.col-md-6.text-center
+        .content.shadow.p-3.mb-2.wow.fadeInUp(data-wow-delay='0.3s')
+          img.img-fluid(src='img/cat3.png' alt='categories')
+          h5.my-2
+            a.text-center(href='#') Python
+      .col-lg-3.col-md-6.text-center
+        .content.shadow.p-3.mb-2.wow.fadeInUp(data-wow-delay='0.3s')
+          img.img-fluid(src='img/cat4.png' alt='categories')
+          h5.my-2
+            a.text-center(href='#') Java
+  <!-- category end -->
 
-      .col-md-3
-        label(for='minPrice') #{t('home.MinPrice')}
-        input.form-control(type='number', name='minPrice', placeholder=t('home.MinPrice'), value=(filters.minPrice || ''), min='0')
+  <!-- course and filter start -->
+  .container-xxl.py-5
+    .custom-grid-container  
+      form(action='/courses' method='GET' class='row g-3')
+        .custom-sort-container
+          h2.py-2 #{t('home.Filters')}
+          .col-md-10
+            label.text-dark(for='professorId') #{t('home.Professor')}
+            .custom-input
+              input.custom-sort(type='number' name='professorId' placeholder=t('home.Professor') value=(filters.professorId || '') onfocus="this.parentElement.classList.add('active')" onblur="this.parentElement.classList.remove('active')")
 
-      .col-md-3
-        label(for='maxPrice') #{t('home.MaxPrice')}
-        input.form-control(type='number', name='maxPrice', placeholder=t('home.MaxPrice'), value=(filters.maxPrice || ''), min='0')
+          .col-md-10
+            label.text-dark(for='minPrice') #{t('home.MinPrice')}
+            .custom-input
+              input.custom-sort(type='number' name='minPrice', placeholder=t('home.MinPrice'), value=(filters.minPrice || ''), min='0' onfocus="this.parentElement.classList.add('active')" onblur="this.parentElement.classList.remove('active')")
 
-      .col-md-3
-        label(for='minRating') #{t('home.MinRating')}
-        input.form-control(type='number', step='0.1', min='0', max='5', name='minRating', placeholder=t('home.MinRating'), value=(filters.minRating || ''))
+          .col-md-10
+            label.text-dark(for='maxPrice') #{t('home.MaxPrice')}
+            .custom-input
+              input.custom-sort(type='number' name='maxPrice', placeholder=t('home.MaxPrice'), value=(filters.maxPrice || ''), min='0' onfocus="this.parentElement.classList.add('active')" onblur="this.parentElement.classList.remove('active')")
 
-      .col-md-3
-        label(for='sortBy') #{t('home.SortBy')}
-        select.form-control(name='sortBy')
-          option(value='name' selected=(filters.sortBy === 'name')) #{t('home.SortByName')}
-          option(value='price' selected=(filters.sortBy === 'price')) #{t('home.SortByPrice')}
-          option(value='average_rating' selected=(filters.sortBy === 'average_rating')) #{t('home.SortByRating')}
-          option(value='created_at' selected=(filters.sortBy === 'created_at')) #{t('home.SortByDate')}
+          .col-md-10
+            label.text-dark(for='minRating') #{t('home.MinRating')}
+            .custom-input
+              input.custom-sort(type='number' step='0.1' min='0' max='5' name='minRating', placeholder=t('home.MinRating'), value=(filters.minRating || '') onfocus="this.parentElement.classList.add('active')" onblur="this.parentElement.classList.remove('active')")
 
-      .col-md-3
-        label(for='sortOrder') #{t('home.SortOrder')}
-        select.form-control(name='sortOrder')
-          option(value='ASC' selected=(filters.sortOrder === 'ASC')) #{t('home.SortAsc')}
-          option(value='DESC' selected=(filters.sortOrder === 'DESC')) #{t('home.SortDesc')}
+          .col-md-10
+            label.text-dark(for='sortBy') #{t('home.SortBy')}
+            .custom-input
+              select.custom-sort(name='sortBy' onfocus="this.parentElement.classList.add('active')" onblur="this.parentElement.classList.remove('active')")
+                option(value='name' selected=(filters.sortBy === 'name')) #{t('home.SortByName')}
+                option(value='price' selected=(filters.sortBy === 'price')) #{t('home.SortByPrice')}
+                option(value='average_rating' selected=(filters.sortBy === 'average_rating')) #{t('home.SortByRating')}
+                option(value='created_at' selected=(filters.sortBy === 'created_at')) #{t('home.SortByDate')}
 
-      .col-md-12
-        button.btn.btn-primary(type='submit') #{t('home.ApplyFilters')}
+          .col-md-10
+            label.text-dark(for='sortOrder') #{t('home.SortOrder')}
+            .custom-input
+              select.custom-sort(name='sortOrder' onfocus="this.parentElement.classList.add('active')" onblur="this.parentElement.classList.remove('active')")
+                option(value='ASC' selected=(filters.sortOrder === 'ASC')) #{t('home.SortAsc')}
+                option(value='DESC' selected=(filters.sortOrder === 'DESC')) #{t('home.SortDesc')}
 
-  <!-- Courses Start -->
-    .container-xxl.py-5
-    .container
-      .text-center.wow.fadeInUp(data-wow-delay='0.1s')
-        h6.section-title.bg-white.text-center.px-3 #{t('home.Courses-title')}
-        h1.mb-5.custom-color #{t('home.Courses-content')}
-      .row.g-4.py-2
-        if courses && courses.length > 0
-          each course in courses
-            .col-lg-3.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
-              .course-item.shadow
-                .position-relative.overflow-hidden.text-light.image
-                  img.img-fluid(src='img/course-1.jpg' alt=course.name)
-                  .px-2.py-1.fw-bold.text-uppercase
-                    | #{course.price ? t('home.FREE') : t('home.PAID')}
-                .p-2.pb-0
-                  h5.mb-1
-                    a.text-dark(href=`/courses/${course.id}`) #{course.name}
-                  .d-flex
-                    small.flex-fill.py-1.px-2
-                      i.fa.fa-star.text-warning.me-2
-                      | #{course.average_rating}
-                    small.flex-fill.text-left.p-2
-                      i.fa.fa-clock.me-2
-                      | #{course.totalHours}#{t('home.Hrs')}
-                    small.text-primary.py-1.px-2.fw-bold.fs-6
-                      if isLoggedIn
-                        if purchasedCourses.some(purchasedCourse => purchasedCourse.id === course.id)
-                          a(href=`/enrollments/${course.id}`)
-                            | #{t('home.Enroll')}  
-                            i.fa.fa-chevron-right.me-2.fs-10
+          .col-md-10
+            button.btn.text-light(type='submit') #{t('home.ApplyFilters')}
+
+      .container
+        h2.py-2 #{t('home.course')}
+        .row.g-4.py-2
+          if courses && courses.length > 0
+            each course in courses
+              .col-lg-4.col-md-6.wow.fadeInUp(data-wow-delay='0.1s')
+                .course-item.shadow
+                  .position-relative.overflow-hidden.text-light.image
+                    img.img-fluid(src='img/course-1.jpg' alt=course.name)
+                  .p-2.pb-0.custom-course-name
+                    h5.mb-1
+                      a.text-dark(href=`/courses/${course.id}`) #{course.name}
+                    .d-flex
+                      small.flex-fill.py-1.px-2
+                        i.fa.fa-star.text-warning.me-2
+                        | #{course.average_rating}
+                      small.flex-fill.text-left.p-2
+                        i.fa.fa-clock.me-2
+                        | #{course.totalHours}#{t('home.Hrs')}
+                      small.text-primary.py-1.px-2.fw-bold.fs-6
+                        if isLoggedIn
+                          if purchasedCourses.some(purchasedCourse => purchasedCourse.id === course.id)
+                            a(href=`/enrollments/${course.id}`)
+                              | #{t('home.Enroll')}  
+                              i.fa.fa-chevron-right.me-2.fs-10
+                          else
+                            a(href=`/payments/${course.id}`)
+                              | #{course.price}$ #{t('home.Buy')}
+                              i.fa.fa-chevron-right.me-2.fs-10
                         else
-                          a(href=`/payments/${course.id}`)
-                            | #{course.price}$ #{t('home.Buy')}
+                          a(href=`/login`) 
+                            | #{course.price}$  #{t('home.Buy')}  
                             i.fa.fa-chevron-right.me-2.fs-10
-                      else
-                        a(href=`/login`) 
-                          | #{course.price}$  #{t('home.Buy')}  
-                          i.fa.fa-chevron-right.me-2.fs-10
-          else
-                p.text-center #{t('home.NoCoursesAvailable')}
-                
-  //- Pagination Section
-  if pageCount > 1
-    .d-flex.justify-content-center.mt-4
-      nav
-        ul.pagination
-          //- Previous Page Link
-          li.page-item(class=(currentPage === 1 ? 'disabled' : ''))
-            a.page-link(href=`?page=${currentPage - 1}&sortBy=${filters.sortBy}&sortOrder=${filters.sortOrder}&professorId=${filters.professorId || ''}&minPrice=${filters.minPrice || ''}&maxPrice=${filters.maxPrice || ''}&minRating=${filters.minRating || ''}`)
-              | « #{t('home.Previous')}
+            else
+              p.text-center #{t('home.NoCoursesAvailable')}
 
-          //- Page Numbers
-          each num in [...Array(pageCount).keys()].map(n => n + 1)
-            li.page-item(class=(currentPage === num ? 'active' : ''))
-              a.page-link(href=`?page=${num}&sortBy=${filters.sortBy}&sortOrder=${filters.sortOrder}&professorId=${filters.professorId || ''}&minPrice=${filters.minPrice || ''}&maxPrice=${filters.maxPrice || ''}&minRating=${filters.minRating || ''}`) #{num}
+          //- Pagination Section
+          if pageCount > 1
+            .d-flex.justify-content-center.mt-5
+              nav
+                ul.pagination
+                  //- Previous Page Link
+                  li.page-item(class=(currentPage === 1 ? 'disabled' : ''))
+                    a.page-link(href=`?page=${currentPage - 1}&sortBy=${filters.sortBy}&sortOrder=${filters.sortOrder}&professorId=${filters.professorId || ''}&minPrice=${filters.minPrice || ''}&maxPrice=${filters.maxPrice || ''}&minRating=${filters.minRating || ''}`)
+                      | «
 
-          //- Next Page Link
-          li.page-item(class=(currentPage === pageCount ? 'disabled' : ''))
-            a.page-link(href=`?page=${currentPage + 1}&sortBy=${filters.sortBy}&sortOrder=${filters.sortOrder}&professorId=${filters.professorId || ''}&minPrice=${filters.minPrice || ''}&maxPrice=${filters.maxPrice || ''}&minRating=${filters.minRating || ''}`)
-              | #{t('home.Next')} »
+                  //- Page Numbers
+                  each num in [...Array(pageCount).keys()].map(n => n + 1)
+                    li.page-item(class=(currentPage === num ? 'active' : ''))
+                      a.page-link(href=`?page=${num}&sortBy=${filters.sortBy}&sortOrder=${filters.sortOrder}&professorId=${filters.professorId || ''}&minPrice=${filters.minPrice || ''}&maxPrice=${filters.maxPrice || ''}&minRating=${filters.minRating || ''}`) #{num}
+
+                  //- Next Page Link
+                  li.page-item(class=(currentPage === pageCount ? 'disabled' : ''))
+                    a.page-link(href=`?page=${currentPage + 1}&sortBy=${filters.sortBy}&sortOrder=${filters.sortOrder}&professorId=${filters.professorId || ''}&minPrice=${filters.minPrice || ''}&maxPrice=${filters.maxPrice || ''}&minRating=${filters.minRating || ''}`)
+                      | »
+  <!-- course and filter end -->
 
   include partial/footer
