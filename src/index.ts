@@ -19,6 +19,7 @@ AppDataSource.initialize()
   .then( async () => {
     console.log('Data Source has been initialized!');
     await runSeeder(AppDataSource); 
+
   })
   .catch((error: unknown) => {
     console.log('Error during Data Source initialization:', error);
